@@ -3,161 +3,57 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Best Credit Card Finder</title>
+<title>Singapore Card Benefits Finder</title>
 <style>
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: Arial, sans-serif;
   margin: 20px;
-  background-color: #f8f9fa;
+  background: #f5f7fa;
   color: #333;
 }
-h1 {
-  text-align: center;
-  color: #007bff;
-  margin-bottom: 20px;
-}
-label {
-  font-weight: bold;
-}
-input[type="text"] {
-  width: 100%;
-  max-width: 400px;
-  padding: 8px 12px;
-  margin: 5px 0;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-  font-size: 14px;
-}
-select {
-  width: 100%;
-  max-width: 400px;
-  padding: 8px 12px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-  box-sizing: border-box;
-}
-button {
-  padding: 8px 16px;
-  border-radius: 6px;
-  border: none;
-  background-color: #007bff;
-  color: #fff;
-  cursor: pointer;
-  margin-left: 5px;
-  font-size: 14px;
-}
-button:hover {
-  background-color: #0056b3;
-}
-.autocomplete-suggestions {
-  border: 1px solid #ccc;
-  max-height: 180px;
-  overflow-y: auto;
-  background: #fff;
-  position: absolute;
-  z-index: 1000;
-  width: 100%;
-  border-radius: 6px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-.autocomplete-suggestion {
-  padding: 8px 12px;
-  cursor: pointer;
-}
-.autocomplete-suggestion:hover {
-  background-color: #e9ecef;
-}
-table {
-  border-collapse: collapse;
-  width: 100%;
-  margin-top: 20px;
-  background: #fff;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-th, td {
-  border-bottom: 1px solid #dee2e6;
-  padding: 12px 8px;
-  text-align: left;
-  font-size: 14px;
-}
-th {
-  background-color: #007bff;
-  color: #fff;
-  position: sticky;
-  top: 0;
-}
-tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-tr.owned {
-  background-color: #d4edda;
-}
-.benefits-list {
-  margin: 0;
-  padding-left: 18px;
-  font-size: 13px;
-}
-@media screen and (max-width: 768px) {
-  input[type="text"], select {
-    width: 100%;
-  }
-  th, td {
-    font-size: 12px;
-  }
-}
-.mic-btn {
-  background-color: #28a745;
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  border: none;
-  cursor: pointer;
-  vertical-align: middle;
-  margin-left: 5px;
-}
-.mic-btn:hover {
-  background-color: #218838;
-}
+h1 { text-align: center; color: #2c3e50; }
+.container { max-width: 1000px; margin: auto; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
+input, select, button { padding: 8px; margin: 5px 0; border-radius: 5px; border: 1px solid #ccc; font-size: 14px; }
+button { cursor: pointer; background-color: #2980b9; color: white; border: none; }
+button:hover { background-color: #3498db; }
+label { display: block; margin-top: 10px; font-weight: bold; }
+#results-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+#results-table th, #results-table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+#results-table th { background-color: #2980b9; color: white; }
+.owned { background-color: #dff0d8; }
+.autocomplete-suggestions { border: 1px solid #ccc; max-height: 150px; overflow-y: auto; position: absolute; background: white; z-index: 1000; }
+.autocomplete-suggestion { padding: 5px; cursor: pointer; }
+.autocomplete-suggestion:hover { background: #3498db; color: white; }
 </style>
 </head>
 <body>
+<div class="container">
+<h1>Singapore Credit Card Benefits Finder</h1>
 
-<h1>Singapore Best Credit Card Finder</h1>
+<label for="merchant-input">Merchant (type or use voice 🎤)</label>
+<input type="text" id="merchant-input" placeholder="Enter merchant name">
+<button id="voice-btn">🎤 Speak</button>
 
-<div>
-  <label for="merchant-input">Enter Merchant:</label><br>
-  <input type="text" id="merchant-input" placeholder="Start typing merchant name">
-  <button class="mic-btn" id="voice-btn">🎤</button>
-  <div id="autocomplete-container" class="autocomplete-suggestions"></div>
-</div>
+<label for="user-cards">Select your cards (Ctrl/Cmd + Click for multiple):</label>
+<select id="user-cards" multiple size="5"></select>
 
-<div style="margin-top: 15px;">
-  <label for="user-cards">Your Cards:</label><br>
-  <select id="user-cards" multiple></select>
-</div>
-
-<div style="margin-top: 15px;">
-  <button id="find-cards-btn">Find Best Cards</button>
-</div>
+<button id="search-btn">Find Best Cards</button>
 
 <table id="results-table">
   <thead>
     <tr>
       <th>Rank</th>
-      <th>Bank / Card</th>
-      <th>Benefit Type</th>
-      <th>Benefit Details</th>
+      <th>Card</th>
+      <th>Benefit Types</th>
+      <th>Details</th>
     </tr>
   </thead>
   <tbody></tbody>
 </table>
+</div>
 
 <script>
-// ===================== CARD DATA =====================
+// =================== Cards Data ===================
 const cardsData = {
   "DBS": [
     {
@@ -165,45 +61,55 @@ const cardsData = {
       "type": "credit",
       "category": "cashback",
       "benefits": {
-        "online_shopping": {"description": "5% cashback on online and contactless spend.", "merchants": ["Shopee","Lazada","Amazon Singapore","Qoo10"]},
-        "supermarkets": {"description": "5% cashback at participating supermarkets.", "merchants": ["NTUC FairPrice","Cold Storage","Giant","Sheng Siong"]},
-        "dining": {"description": "5% cashback at cafes, fast food, restaurants.", "merchants": ["Starbucks","McDonald's","KFC","Subway","Toast Box"]}
-      }
-    },
-    {
-      "card_name": "DBS Woman’s World Card",
-      "type": "credit",
-      "category": "miles",
-      "benefits": {
-        "online_shopping": {"description": "4 mpd for all online spend.", "merchants": ["Shopee","Lazada","Amazon Singapore","Qoo10","Zalora"]}
+        "online_shopping": {
+          "description": "5% cashback on online and contactless spend.",
+          "merchants": [
+            {"name": "Shopee", "aliases": ["Shopee SG"], "mcc": [5311]},
+            {"name": "Lazada", "aliases": ["Lazada SG"], "mcc": [5311]},
+            {"name": "Amazon Singapore", "aliases": ["Amazon SG"], "mcc": [5311]},
+            {"name": "Qoo10", "aliases": [], "mcc": [5311]}
+          ]
+        },
+        "supermarkets": {
+          "description": "5% cashback at participating supermarkets.",
+          "merchants": [
+            {"name": "NTUC FairPrice", "aliases": ["FairPrice", "NTUC"], "mcc": [5411]},
+            {"name": "Cold Storage", "aliases": ["Cold Storage SG"], "mcc": [5411]},
+            {"name": "Giant", "aliases": ["Giant Singapore"], "mcc": [5411]},
+            {"name": "Sheng Siong", "aliases": [], "mcc": [5411]}
+          ]
+        },
+        "dining": {
+          "description": "5% cashback at cafes, fast food, restaurants.",
+          "merchants": [
+            {"name": "Starbucks", "aliases": ["Starbucks SG"], "mcc": [5814]},
+            {"name": "McDonald's", "aliases": ["Macdonalds", "McDonalds SG"], "mcc": [5814]},
+            {"name": "KFC", "aliases": ["Kentucky Fried Chicken"], "mcc": [5814]},
+            {"name": "Subway", "aliases": [], "mcc": [5814]},
+            {"name": "Toast Box", "aliases": [], "mcc": [5814]}
+          ]
+        }
       }
     }
   ],
-  "POSB": [
-    {
-      "card_name": "POSB Everyday Card",
-      "type": "credit",
-      "category": "cashback",
-      "benefits": {
-        "supermarkets": {"description": "Up to 5% cashback at Sheng Siong.", "merchants": ["Sheng Siong"]},
-        "petrol": {"description": "Up to 20.1% savings at SPC.", "merchants": ["SPC"]}
-      }
-    }
-  ]
+  // Add all other banks/cards similarly (POSB, UOB, OCBC, Citi, HSBC, Maybank, Standard Chartered, Trust, DCS)
 };
 
-// Flatten merchant list for autocomplete
-let allMerchants = [];
+// =================== Merchant List ===================
+let merchantList = [];
 for (const bank in cardsData) {
   cardsData[bank].forEach(card => {
     for (const benefit in card.benefits) {
-      card.benefits[benefit].merchants.forEach(m => allMerchants.push(m));
+      card.benefits[benefit].merchants.forEach(m => {
+        merchantList.push(m.name);
+        m.aliases.forEach(a => merchantList.push(a));
+      });
     }
   });
 }
-allMerchants = [...new Set(allMerchants)]; // unique
+merchantList = [...new Set(merchantList)]; // unique
 
-// Populate user card selection
+// =================== Populate User Cards Dropdown ===================
 const userCardsSelect = document.getElementById('user-cards');
 for (const bank in cardsData) {
   cardsData[bank].forEach(card => {
@@ -214,91 +120,80 @@ for (const bank in cardsData) {
   });
 }
 
-// ===================== AUTO-COMPLETE =====================
+// =================== Autocomplete ===================
 const merchantInput = document.getElementById('merchant-input');
-const autocompleteContainer = document.getElementById('autocomplete-container');
+let suggestionsBox;
 
 merchantInput.addEventListener('input', function() {
   const val = this.value.toLowerCase();
-  autocompleteContainer.innerHTML = '';
+  closeSuggestions();
   if (!val) return;
-  allMerchants.filter(m => m.toLowerCase().includes(val)).forEach(m => {
-    const div = document.createElement('div');
-    div.className = 'autocomplete-suggestion';
-    div.textContent = m;
-    div.addEventListener('click', () => {
-      merchantInput.value = m;
-      autocompleteContainer.innerHTML = '';
-    });
-    autocompleteContainer.appendChild(div);
+  suggestionsBox = document.createElement('div');
+  suggestionsBox.classList.add('autocomplete-suggestions');
+  this.parentNode.appendChild(suggestionsBox);
+  merchantList.forEach(merchant => {
+    if (merchant.toLowerCase().includes(val)) {
+      const div = document.createElement('div');
+      div.classList.add('autocomplete-suggestion');
+      div.innerText = merchant;
+      div.addEventListener('click', () => {
+        merchantInput.value = merchant;
+        closeSuggestions();
+      });
+      suggestionsBox.appendChild(div);
+    }
   });
 });
 
-// ===================== VOICE INPUT =====================
+function closeSuggestions() { if (suggestionsBox) suggestionsBox.remove(); }
+
+// =================== Voice Input ===================
 const voiceBtn = document.getElementById('voice-btn');
-if ('webkitSpeechRecognition' in window) {
-  const recognition = new webkitSpeechRecognition();
-  recognition.continuous = false;
-  recognition.interimResults = false;
+voiceBtn.addEventListener('click', () => {
+  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
   recognition.lang = 'en-US';
-
-  voiceBtn.addEventListener('click', () => {
-    recognition.start();
-  });
-
+  recognition.start();
   recognition.onresult = function(event) {
     merchantInput.value = event.results[0][0].transcript;
-    autocompleteContainer.innerHTML = '';
+    recognition.stop();
   };
-}
+});
 
-// ===================== CARD RANKING =====================
+// =================== Find Best Cards ===================
+document.getElementById('search-btn').addEventListener('click', findBestCards);
+
 function findBestCards() {
   const merchant = merchantInput.value.trim().toLowerCase();
   const selectedCards = Array.from(userCardsSelect.selectedOptions).map(o => o.value);
-
   const results = [];
 
   for (const bank in cardsData) {
     cardsData[bank].forEach(card => {
-      let maxBenefit = 0;
+      let totalScore = 0;
       let benefitDetails = [];
+
       for (const benefit in card.benefits) {
-        const merchants = card.benefits[benefit].merchants.map(m => m.toLowerCase());
-        if (merchants.includes(merchant)) {
-          // crude scoring: cashback% or mpd assumed numeric in description
-          let score = 0;
-          const match = card.benefits[benefit].description.match(/(\d+\.?\d*)/);
-          if (match) score = parseFloat(match[1]);
-          if (score > maxBenefit) {
-            maxBenefit = score;
-            benefitDetails = [{
-              type: benefit,
-              description: card.benefits[benefit].description
-            }];
-          } else if (score === maxBenefit) {
-            benefitDetails.push({
-              type: benefit,
-              description: card.benefits[benefit].description
-            });
+        card.benefits[benefit].merchants.forEach(m => {
+          if (m.name.toLowerCase() === merchant || m.aliases.some(a => a.toLowerCase() === merchant)) {
+            const desc = card.benefits[benefit].description;
+            let score = 0;
+            const match = desc.match(/(\d+\.?\d*)/);
+            if (match) score = parseFloat(match[1]);
+            totalScore += score;
+            benefitDetails.push({type: benefit, description: desc, score});
           }
-        }
+        });
       }
-      if (maxBenefit > 0) {
+
+      if (benefitDetails.length > 0) {
         results.push({
-          bank: bank,
-          card: card.card_name,
-          maxBenefit,
-          benefitDetails,
-          owned: selectedCards.includes(`${bank}||${card.card_name}`)
+          bank, card: card.card_name, totalScore, benefitDetails, owned: selectedCards.includes(`${bank}||${card.card_name}`)
         });
       }
     });
   }
 
-  results.sort((a,b) => b.maxBenefit - a.maxBenefit);
-
-  // Populate table
+  results.sort((a,b) => b.totalScore - a.totalScore);
   const tbody = document.querySelector('#results-table tbody');
   tbody.innerHTML = '';
   results.forEach((r,i) => {
@@ -312,10 +207,6 @@ function findBestCards() {
     tbody.appendChild(tr);
   });
 }
-
-// ===================== BUTTON EVENT =====================
-document.getElementById('find-cards-btn').addEventListener('click', findBestCards);
 </script>
-
 </body>
 </html>
