@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Card Reward Optimizer</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; }
+  table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+  th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+  th { background-color: #f4f4f4; cursor: pointer; }
+  tr.owned { background-color: #e0ffe0; }
+  input, select, button { padding: 5px; margin: 5px 0; }
+  .benefits-list { margin: 0; padding-left: 20px; }
+  .autocomplete-suggestions { border: 1px solid #ccc; max-height: 150px; overflow-y: auto; background: #fff; position: absolute; z-index: 1000; }
+  .autocomplete-suggestion { padding: 5px; cursor: pointer; }
+  .autocomplete-suggestion:hover { background-color: #f0f0f0; }
+</style>
+</head>
+<body>
+
+<h1>Card Reward Optimizer</h1>
+
+<div style="position: relative;">
+  <label>
+    Enter Merchant(s): <br>
+    <input type="text" id="merchantInput" placeholder="Type merchant or MCC code">
+    <button onclick="startVoiceInput()">🎤</button>
+    <div id="autocomplete-list" class="autocomplete-suggestions"></div>
+  </label>
+</div>
+
+<div>
+  <label>
+    Select Your Cards: <br>
+    <select id="userCards" multiple size="6"></select>
+  </label>
+</div>
+
+<button onclick="searchCards()">Find Best Cards</button>
+
+<div id="results"></div>
+
+<script src="cards_merchants_enriched.json"></script>
+<script>
+  // Flatten all merchants from JSON for auto-complete
+  const allMerchantsList = [];
+  for (const bank in cardsData) {
+    cardsData[bank].forEach(card => {
+      for (const benefitKey in card.benefits) {
+        const benefit = card.benefits[benefitKey];
+        if (!benefit.merchants) continue;
+        benefit.merchants.forEach(m => {
+          const names = [m.name, ...(m.aliases || []), ...(m.mcc || [])];
+          names.forEach(n => {
+            if (!allMerchantsList.includes(n)) allMerchantsList.push(n);
+          });
+        });
+      }
+    });
+  }
+
+  // Auto-complete logic
+  const merchantInput = document.getElementById('merchantInput');
+  const autocompleteList = document.getElementById('autocomplete-list');
+
+  merchantInput.addEventListener('input', function() {
+    const val = this.value.toLowerCase();
+    autocompleteList.innerHTML = '';
+    if (!val) return;
+    const matches = allMerchantsList.filter(m => m.toLowerCase().includes(val)).slice(0, 10);
+    matches.forEach(match => {
+      const div = document.createElement('div');
+      div.classList.add('autocomplete-suggestion');
+      div.textContent = match;
+      div.addEventListener('click', () => {
+        merchantInput.value = match;
+        autocompleteList.innerHTML = '';
+      });
+      autocompleteList.appendChild(div);
+    });
+  });
+
+  document.addEventListener('click', e => {
+    if (e.target !== merchantInput) autocompleteList.innerHTML = '';
+  });
+
+  // Voice input logic
+  function startVoiceInput() {
+    if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
+      alert('Speech recognition not supported in this browser.');
+      return;
+    }
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    recognition.start();
+
+    recognition.onresult = event => {
+      const transcript = event.results[0][0].transcript;
+      merchantInput.value = transcript;
+      // trigger input event for auto-complete
+      merchantInput.dispatchEvent(new Event('input'));
+    };
+
+    recognition.onerror = event => {
+      console.error(event.error);
+      alert('Error in speech recognition: ' + event.error);
+    };
+  }
+
+  // Populate user cards select dropdown
+  function populateUserCards() {
+    const select = document.getElementById('userCards');
+    select.innerHTML = '';
+    for (const bank in cardsData) {
+      cardsData[bank].forEach(card => {
+        const option = document.createElement('option');
+        option.value = `${bank} - ${card.card_name}`;
+        option.textContent = `${bank} - ${card.card_name}`;
+        select.appendChild(option);
+      });
+    }
+  }
+
+  // Reward extraction helper
+  function extractRewardValue(description) {
+    if (!description) return 0;
+    const percentMatch = description.match(/(\d+(\.\d+)?)\s*%/);
+    if (percentMatch) return parseFloat(percentMatch[1]);
+    const pointsMatch = description.match(/(\d+(\.\d+)?)\s*X/i);
+    if (pointsMatch) return parseFloat(pointsMatch[1]);
+    return 0;
+  }
+
+  function matchMerchant(input, merchant) {
+    const lowerInput = input.toLowerCase();
+    const allNames = [merchant.name, ...(merchant.aliases || []), ...(merchant.mcc || [])];
+    return allNames.some(name => name.toLowerCase() === lowerInput);
+  }
+
+  function getRankedCardsForMerchants(cardsData, merchantInputs, userCards = []) {
+    const cardRewardsMap = {};
+    for (const bank in cardsData) {
+      const cards = cardsData[bank];
+      for (const card of cards) {
+        const { card_name, type, category, benefits } = card;
+        let totalReward = 0;
+        let matchedBenefits = [];
+        merchantInputs.forEach(input => {
+          for (const benefitKey in benefits) {
+            const benefit = benefits[benefitKey];
+            if (!benefit.merchants || benefit.merchants.length === 0) continue;
+            for (const m of benefit.merchants) {
+              if (matchMerchant(input, m)) {
+                const rewardValue = extractRewardValue(benefit.description);
+                totalReward += rewardValue;
+                matchedBenefits.push({
+                  benefit_category: benefitKey,
+                  benefit_description: benefit.description,
+                  merchant: m.name,
+                  merchant_aliases: m.aliases,
+                  mcc: m.mcc || [],
+                  rewardValue,
+                  matchedInput: input
+                });
+              }
+            }
+          }
+        });
+        if (totalReward > 0) {
+          const cardKey = `${bank} - ${card_name}`;
+          cardRewardsMap[cardKey] = {
+            bank,
+            card_name,
+            type,
+            category,
+            totalReward,
+            matchedBenefits,
+            owned: userCards.includes(cardKey)
+          };
+        }
+      }
+    }
+    return Object.values(cardRewardsMap).sort((a,b) => b.totalReward - a.totalReward);
+  }
+
+  function searchCards() {
+    const merchantInputRaw = document.getElementById('merchantInput').value.trim();
+    if (!merchantInputRaw) { alert("Enter merchant(s)"); return; }
+    const merchantInputs = merchantInputRaw.split(',').map(m => m.trim());
+    const userCardsSelect = document.getElementById('userCards');
+    const userCards = Array.from(userCardsSelect.selectedOptions).map(opt => opt.value);
+    const rankedCards = getRankedCardsForMerchants(cardsData, merchantInputs, userCards);
+    displayResults(rankedCards);
+  }
+
+  function displayResults(cards) {
+    const container = document.getElementById('results');
+    if (!cards || cards.length === 0) {
+      container.innerHTML = "<p>No cards found for these merchants.</p>";
+      return;
+    }
+    let html = '<table>';
+    html += '<thead><tr>';
+    html += '<th>Bank</th><th>Card Name</th><th>Category</th><th>Total Reward</th><th>Owned</th><th>Matched Benefits</th>';
+    html += '</tr></thead><tbody>';
+    cards.forEach(card => {
+      html += `<tr class="${card.owned ? 'owned' : ''}">`;
+      html += `<td>${card.bank}</td>`;
+      html += `<td>${card.card_name}</td>`;
+      html += `<td>${card.category}</td>`;
+      html += `<td>${card.totalReward}</td>`;
+      html += `<td>${card.owned ? 'Yes' : 'No'}</td>`;
+      html += '<td><ul class="benefits-list">';
+      card.matchedBenefits.forEach(b => {
+        html += `<li>${b.matchedInput} matched: ${b.benefit_category} - ${b.benefit_description} (${b.merchant})</li>`;
+      });
+      html += '</ul></td>';
+      html += '</tr>';
+    });
+    html += '</tbody></table>';
+    container.innerHTML = html;
+  }
+
+  populateUserCards();
+</script>
+
+</body>
+</html>
