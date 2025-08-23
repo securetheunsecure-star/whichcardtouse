@@ -74,16 +74,10 @@ fetch('cards_merchants_enriched.json') // <-- replace with your JSON file path
     cardsData = data;
     console.log('Cards data loaded:', cardsData);
     // You can now call a function to initialize autocomplete, populate card list, etc.
-    initApp();
   })
   .catch(err => {
     console.error('Error loading JSON:', err);
   });
-
-function initApp() {
-  // Your app initialization code here
-  console.log('App initialized with cards data.');
-}
 
 // =================== Globals ===================
 let merchantList = [];
@@ -98,6 +92,7 @@ for (const bank in cardsData) {
   });
 }
 merchantList = [...new Set(merchantList)]; // unique
+console.log('Cards data loaded:', merchantList);
 
 let userCards = []; // format: {bank, card}
 
