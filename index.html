@@ -24,18 +24,26 @@ label { display: block; margin-top: 10px; font-weight: bold; }
 .autocomplete-suggestions { border: 1px solid #ccc; max-height: 150px; overflow-y: auto; position: absolute; background: white; z-index: 1000; }
 .autocomplete-suggestion { padding: 5px; cursor: pointer; }
 .autocomplete-suggestion:hover { background: #3498db; color: white; }
+.card-list { max-height: 150px; overflow-y: auto; border: 1px solid #ccc; padding: 5px; }
+.card-item { display: flex; justify-content: space-between; padding: 5px; border-bottom: 1px solid #eee; }
+.card-item button { background-color: #e74c3c; }
+.card-item button:hover { background-color: #c0392b; }
 </style>
 </head>
 <body>
 <div class="container">
-<h1>Singapore Credit Card Benefits Finder</h1>
+<h1>Singapore Card Benefits Finder</h1>
 
 <label for="merchant-input">Merchant (type or use voice 🎤)</label>
 <input type="text" id="merchant-input" placeholder="Enter merchant name">
 <button id="voice-btn">🎤 Speak</button>
 
-<label for="user-cards">Select your cards (Ctrl/Cmd + Click for multiple):</label>
-<select id="user-cards" multiple size="5"></select>
+<label for="available-cards">Add Card:</label>
+<select id="available-cards"></select>
+<button id="add-card-btn">Add</button>
+
+<label>Your Cards:</label>
+<div id="user-card-list" class="card-list"></div>
 
 <button id="search-btn">Find Best Cards</button>
 
@@ -54,48 +62,31 @@ label { display: block; margin-top: 10px; font-weight: bold; }
 
 <script>
 // =================== Cards Data ===================
-const cardsData = {
-  "DBS": [
-    {
-      "card_name": "DBS Live Fresh Credit Card",
-      "type": "credit",
-      "category": "cashback",
-      "benefits": {
-        "online_shopping": {
-          "description": "5% cashback on online and contactless spend.",
-          "merchants": [
-            {"name": "Shopee", "aliases": ["Shopee SG"], "mcc": [5311]},
-            {"name": "Lazada", "aliases": ["Lazada SG"], "mcc": [5311]},
-            {"name": "Amazon Singapore", "aliases": ["Amazon SG"], "mcc": [5311]},
-            {"name": "Qoo10", "aliases": [], "mcc": [5311]}
-          ]
-        },
-        "supermarkets": {
-          "description": "5% cashback at participating supermarkets.",
-          "merchants": [
-            {"name": "NTUC FairPrice", "aliases": ["FairPrice", "NTUC"], "mcc": [5411]},
-            {"name": "Cold Storage", "aliases": ["Cold Storage SG"], "mcc": [5411]},
-            {"name": "Giant", "aliases": ["Giant Singapore"], "mcc": [5411]},
-            {"name": "Sheng Siong", "aliases": [], "mcc": [5411]}
-          ]
-        },
-        "dining": {
-          "description": "5% cashback at cafes, fast food, restaurants.",
-          "merchants": [
-            {"name": "Starbucks", "aliases": ["Starbucks SG"], "mcc": [5814]},
-            {"name": "McDonald's", "aliases": ["Macdonalds", "McDonalds SG"], "mcc": [5814]},
-            {"name": "KFC", "aliases": ["Kentucky Fried Chicken"], "mcc": [5814]},
-            {"name": "Subway", "aliases": [], "mcc": [5814]},
-            {"name": "Toast Box", "aliases": [], "mcc": [5814]}
-          ]
-        }
-      }
-    }
-  ],
-  // Add all other banks/cards similarly (POSB, UOB, OCBC, Citi, HSBC, Maybank, Standard Chartered, Trust, DCS)
+let cardsData = {};
+
+// Load the JSON file dynamically
+fetch('cards_merchants_enriched.json') // <-- replace with your JSON file path
+  .then(response => {
+    if (!response.ok) throw new Error('Failed to load JSON');
+    return response.json();
+  })
+  .then(data => {
+    cardsData = data;
+    console.log('Cards data loaded:', cardsData);
+    // You can now call a function to initialize autocomplete, populate card list, etc.
+    initApp();
+  })
+  .catch(err => {
+    console.error('Error loading JSON:', err);
+  });
+
+function initApp() {
+  // Your app initialization code here
+  console.log('App initialized with cards data.');
+}
 };
 
-// =================== Merchant List ===================
+// =================== Globals ===================
 let merchantList = [];
 for (const bank in cardsData) {
   cardsData[bank].forEach(card => {
@@ -109,21 +100,47 @@ for (const bank in cardsData) {
 }
 merchantList = [...new Set(merchantList)]; // unique
 
-// =================== Populate User Cards Dropdown ===================
-const userCardsSelect = document.getElementById('user-cards');
+let userCards = []; // format: {bank, card}
+
+// =================== Populate Add Card Dropdown ===================
+const availableCardsSelect = document.getElementById('available-cards');
 for (const bank in cardsData) {
   cardsData[bank].forEach(card => {
     const option = document.createElement('option');
     option.value = `${bank}||${card.card_name}`;
     option.text = `${bank} - ${card.card_name}`;
-    userCardsSelect.appendChild(option);
+    availableCardsSelect.appendChild(option);
   });
 }
+
+// =================== Render User Cards ===================
+function renderUserCards() {
+  const list = document.getElementById('user-card-list');
+  list.innerHTML = '';
+  userCards.forEach((c, idx) => {
+    const div = document.createElement('div');
+    div.classList.add('card-item');
+    div.innerHTML = `<span>${c.bank} - ${c.card}</span>
+                     <button onclick="removeCard(${idx})">Remove</button>`;
+    list.appendChild(div);
+  });
+}
+function removeCard(idx) { userCards.splice(idx,1); renderUserCards(); }
+
+// =================== Add Card ===================
+document.getElementById('add-card-btn').addEventListener('click', () => {
+  const val = availableCardsSelect.value;
+  if (!val) return;
+  const [bank, card] = val.split('||');
+  if (!userCards.some(c=>c.bank===bank && c.card===card)) {
+    userCards.push({bank, card});
+    renderUserCards();
+  }
+});
 
 // =================== Autocomplete ===================
 const merchantInput = document.getElementById('merchant-input');
 let suggestionsBox;
-
 merchantInput.addEventListener('input', function() {
   const val = this.value.toLowerCase();
   closeSuggestions();
@@ -144,7 +161,6 @@ merchantInput.addEventListener('input', function() {
     }
   });
 });
-
 function closeSuggestions() { if (suggestionsBox) suggestionsBox.remove(); }
 
 // =================== Voice Input ===================
@@ -164,7 +180,6 @@ document.getElementById('search-btn').addEventListener('click', findBestCards);
 
 function findBestCards() {
   const merchant = merchantInput.value.trim().toLowerCase();
-  const selectedCards = Array.from(userCardsSelect.selectedOptions).map(o => o.value);
   const results = [];
 
   for (const bank in cardsData) {
@@ -187,7 +202,8 @@ function findBestCards() {
 
       if (benefitDetails.length > 0) {
         results.push({
-          bank, card: card.card_name, totalScore, benefitDetails, owned: selectedCards.includes(`${bank}||${card.card_name}`)
+          bank, card: card.card_name, totalScore, benefitDetails,
+          owned: userCards.some(c=>c.bank===bank && c.card===card.card_name)
         });
       }
     });
