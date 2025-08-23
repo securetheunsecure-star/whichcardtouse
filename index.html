@@ -73,6 +73,7 @@ fetch('cards_merchants_enriched.json') // <-- replace with your JSON file path
   .then(data => {
     cardsData = data;
     console.log('Cards data loaded:', cardsData);
+    initApp();
     // You can now call a function to initialize autocomplete, populate card list, etc.
   })
   .catch(err => {
@@ -80,6 +81,8 @@ fetch('cards_merchants_enriched.json') // <-- replace with your JSON file path
   });
 
 // =================== Globals ===================
+
+function initApp() {
 let merchantList = [];
 for (const bank in cardsData) {
   cardsData[bank].forEach(card => {
@@ -108,20 +111,6 @@ for (const bank in cardsData) {
 
 }
   console.log('Cards data loaded:', availableCardsSelect);
-
-// =================== Render User Cards ===================
-function renderUserCards() {
-  const list = document.getElementById('user-card-list');
-  list.innerHTML = '';
-  userCards.forEach((c, idx) => {
-    const div = document.createElement('div');
-    div.classList.add('card-item');
-    div.innerHTML = `<span>${c.bank} - ${c.card}</span>
-                     <button onclick="removeCard(${idx})">Remove</button>`;
-    list.appendChild(div);
-  });
-}
-function removeCard(idx) { userCards.splice(idx,1); renderUserCards(); }
 
 // =================== Add Card ===================
 document.getElementById('add-card-btn').addEventListener('click', () => {
@@ -157,7 +146,23 @@ merchantInput.addEventListener('input', function() {
       suggestionsBox.appendChild(div);
     }
   });
-});
+});  
+}
+// =================== Render User Cards ===================
+function renderUserCards() {
+  const list = document.getElementById('user-card-list');
+  list.innerHTML = '';
+  userCards.forEach((c, idx) => {
+    const div = document.createElement('div');
+    div.classList.add('card-item');
+    div.innerHTML = `<span>${c.bank} - ${c.card}</span>
+                     <button onclick="removeCard(${idx})">Remove</button>`;
+    list.appendChild(div);
+  });
+}
+function removeCard(idx) { userCards.splice(idx,1); renderUserCards(); }
+
+
 function closeSuggestions() { if (suggestionsBox) suggestionsBox.remove(); }
 
 // =================== Voice Input ===================
