@@ -177,7 +177,8 @@ function findBestCards() {
   const results = [];
 
   for (const bank in cardsData) {
-    cardsData[bank].forEach(card => {
+    const bankCards = cardsData[bank];
+    bankCards.forEach(card => {
       let totalScore = 0;
       let benefitDetails = [];
 
