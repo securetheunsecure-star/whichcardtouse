@@ -105,7 +105,9 @@ for (const bank in cardsData) {
     option.text = `${bank} - ${card.card_name}`;
     availableCardsSelect.appendChild(option);
   });
+
 }
+  console.log('Cards data loaded:', availableCardsSelect);
 
 // =================== Render User Cards ===================
 function renderUserCards() {
@@ -131,6 +133,7 @@ document.getElementById('add-card-btn').addEventListener('click', () => {
     renderUserCards();
   }
 });
+  console.log('Cards data loaded:', userCards);
 
 // =================== Autocomplete ===================
 const merchantInput = document.getElementById('merchant-input');
@@ -178,6 +181,7 @@ function findBestCards() {
 
   for (const bank in cardsData) {
     const bankCards = cardsData[bank];
+console.log('Cards data loaded:', bankCards);
     bankCards.forEach(card => {
       let totalScore = 0;
       let benefitDetails = [];
