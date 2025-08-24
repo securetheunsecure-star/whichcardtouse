@@ -2363,7 +2363,8 @@ const cardsData = {
           "merchants": []
         }
       }
-    },
+    }],
+    "Citi": [  
     {
       "bank": "Citi",
       "card_name": "Citi Cash Back Card",
@@ -2869,8 +2870,7 @@ const cardsData = {
         },
         "typical_min_spend": 800
       }
-    }],
-    "Citi": [  
+    },
     {
       "bank": "Citi",
       "card_name": "Citi Cash Back+ Card",
