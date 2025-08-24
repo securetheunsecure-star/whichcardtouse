@@ -87,7 +87,7 @@
   <script>
     const merchantInput = document.getElementById('merchant-input');
     const autocompleteBox = document.getElementById('autocomplete');
-    const userCards = [];
+    const userCards = JSON.parse(localStorage.getItem("userCards") || "[]");
     const addCardSelect = document.getElementById('add-card-select');
     const userCardsList = document.getElementById('user-cards-list');
 
@@ -176,7 +176,6 @@
       });
     }
 
-    const userCards = JSON.parse(localStorage.getItem("userCards") || "[]");
 
 // Render on page load
 renderUserCards();
