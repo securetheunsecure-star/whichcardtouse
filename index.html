@@ -198,60 +198,99 @@
     // ===================== Find Best Cards =====================
     document.getElementById('search-btn').addEventListener('click', findBestCards);
 
-    function findBestCards() {
-      const merchant = merchantInput.value.trim().toLowerCase();
-      const resultsDiv = document.getElementById('results');
-      resultsDiv.innerHTML = '';
+function findBestCards() {
+  const merchant = document.getElementById('merchantInput').value.trim().toLowerCase();
+  const resultsDiv = document.getElementById('results');
+  resultsDiv.innerHTML = '';
 
-      if (!merchant) {
-        resultsDiv.innerHTML = '<p>Please enter a merchant name.</p>';
-        return;
-      }
+  if (!merchant) {
+    resultsDiv.innerHTML = '<p>Please enter a merchant name.</p>';
+    return;
+  }
 
-      const results = [];
+  const results = [];
 
-      for (const bank in cardsData) {
-        cardsData[bank].forEach(card => {
-          let matchedBenefits = [];
-          for (const category in card.benefits) {
-            const benefit = card.benefits[category];
-            (benefit.merchants || []).forEach(m => {
-              const names = [m.name.toLowerCase(), ...(m.aliases || []).map(a => a.toLowerCase())];
-              if (names.includes(merchant)) {
-                matchedBenefits.push({
-                  bank,
-                  card_name: card.card_name,
-                  category,
-                  description: benefit.description,
-                  details: m.benefit_details || {}
-                });
+  for (const bank in cardsData) {
+    if (!Array.isArray(cardsData[bank])) continue;
+
+    cardsData[bank].forEach(card => {
+      let matchedBenefits = [];
+
+      for (const category in card.benefits) {
+        const benefit = card.benefits[category];
+        if (!benefit.merchants) continue;
+
+        benefit.merchants.forEach(m => {
+          const names = [m.name.toLowerCase(), ...(m.aliases || []).map(a => a.toLowerCase())];
+          if (names.includes(merchant)) {
+            // compute score based on benefit details
+            let score = 0;
+            if (m.benefit_details) {
+              if (m.benefit_details.cashback) {
+                score = parseFloat(m.benefit_details.cashback.replace('%','')) || 0;
+              } else if (m.benefit_details.miles) {
+                score = parseFloat(m.benefit_details.miles.replace('mpd','')) * 2; // weight miles higher
               }
+            }
+
+            matchedBenefits.push({
+              bank,
+              card_name: card.card_name,
+              category,
+              description: benefit.description,
+              details: m.benefit_details || {},
+              score
             });
-          }
-          if (matchedBenefits.length > 0) {
-            results.push(...matchedBenefits);
           }
         });
       }
 
-      if (results.length === 0) {
-        resultsDiv.innerHTML = `<p>No matching benefits found for "${merchant}".</p>`;
-        return;
+      if (matchedBenefits.length > 0) {
+        // aggregate score
+        const totalScore = matchedBenefits.reduce((sum, b) => sum + b.score, 0);
+        results.push({
+          bank,
+          card_name: card.card_name,
+          benefits: matchedBenefits,
+          score: totalScore,
+          isUserCard: userCards.includes(card.card_name) // <== check against saved cards
+        });
       }
+    });
+  }
 
-      results.forEach(r => {
-        const div = document.createElement('div');
-        div.className = 'card-result';
-        div.innerHTML = `
-          <strong>${r.bank} - ${r.card_name}</strong><br>
-          Category: ${r.category}<br>
-          ${r.description}<br>
-          Cashback: ${r.details.cashback || '-'} | Cap: ${r.details.cap || '-'} | Min Spend: ${r.details.min_spend || '-'}
-        `;
-        resultsDiv.appendChild(div);
-      });
-    }
+  if (results.length === 0) {
+    resultsDiv.innerHTML = `<p>No matching benefits found for "${merchant}".</p>`;
+    return;
+  }
 
+  // sort: user’s cards first, then market cards; within group, sort by score
+  results.sort((a, b) => {
+    if (a.isUserCard && !b.isUserCard) return -1;
+    if (!a.isUserCard && b.isUserCard) return 1;
+    return b.score - a.score;
+  });
+
+  // render results
+  results.forEach(r => {
+    const div = document.createElement('div');
+    div.className = 'card-result';
+    div.innerHTML = `
+      <strong>${r.bank} - ${r.card_name}</strong> 
+      ${r.isUserCard ? '<span style="color:green;">(My Card)</span>' : ''}
+      <br>
+      Benefits:<br>
+      ${r.benefits.map(b => `
+        - ${b.category}: ${b.description} 
+          (Cashback: ${b.details.cashback || '-'}, 
+           Miles: ${b.details.miles || '-'}, 
+           Cap: ${b.details.cap || '-'}, 
+           Min Spend: ${b.details.min_spend || '-'})
+      `).join('<br>')}
+    `;
+    resultsDiv.appendChild(div);
+  });
+}
     // ===================== Init =====================
     buildMerchantList();
     setupAutocomplete();
