@@ -281,13 +281,12 @@ function renderUserCards() {
         resultsList.innerHTML = '<li>No matching benefits found. Try keywords like "pizza", "groceries", "uber".</li>';
       } else {
         results.forEach(r => {
+          if (value == 5) {return;}
           const li = document.createElement('li');
           li.className = r.priority === 1 ? "user-card" : "";
           li.innerHTML = `<strong>${r.bank} - ${r.card}</strong><br>${r.benefits.join('<br>')}`;
           resultsList.appendChild(li);
           value += 1;
-
-          if (value == 5) {break;}
         });
       }
     }
