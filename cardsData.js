@@ -341,6 +341,69 @@ const cardsData = {
               }
             }
           ]
+        },
+        "travel": {
+          "description": "Airlines, hotels, and travel bookings.",
+          "mcc": [
+            "3000-3299",
+            "3501-3999",
+            "7011"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "utilities": {
+          "description": "Recurring bills such as telco, broadband, electricity.",
+          "mcc": [
+            "4814",
+            "4816",
+            "4899",
+            "4900"
+          ],
+          "default": true
+        },
+        "petrol": {
+          "description": "Petrol stations and fuel purchases.",
+          "mcc": [
+            "5541",
+            "5542"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       },
       "card_rules": {
@@ -490,6 +553,84 @@ const cardsData = {
               }
             }
           ]
+        },
+        "supermarkets": {
+          "description": "General supermarket and grocery spend.",
+          "mcc": [
+            "5411"
+          ],
+          "default": true
+        },
+        "dining": {
+          "description": "Restaurants, cafes, fast food, and dining places.",
+          "mcc": [
+            "5812",
+            "5814"
+          ],
+          "default": true
+        },
+        "travel": {
+          "description": "Airlines, hotels, and travel bookings.",
+          "mcc": [
+            "3000-3299",
+            "3501-3999",
+            "7011"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "utilities": {
+          "description": "Recurring bills such as telco, broadband, electricity.",
+          "mcc": [
+            "4814",
+            "4816",
+            "4899",
+            "4900"
+          ],
+          "default": true
+        },
+        "petrol": {
+          "description": "Petrol stations and fuel purchases.",
+          "mcc": [
+            "5541",
+            "5542"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       },
       "card_rules": {
@@ -617,6 +758,85 @@ const cardsData = {
               }
             }
           ]
+        },
+        "supermarkets": {
+          "description": "General supermarket and grocery spend.",
+          "mcc": [
+            "5411"
+          ],
+          "default": true
+        },
+        "dining": {
+          "description": "Restaurants, cafes, fast food, and dining places.",
+          "mcc": [
+            "5812",
+            "5814"
+          ],
+          "default": true
+        },
+        "online_shopping": {
+          "description": "General online shopping and e-commerce spend.",
+          "mcc": [
+            "5311",
+            "5399",
+            "5964",
+            "5969"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "utilities": {
+          "description": "Recurring bills such as telco, broadband, electricity.",
+          "mcc": [
+            "4814",
+            "4816",
+            "4899",
+            "4900"
+          ],
+          "default": true
+        },
+        "petrol": {
+          "description": "Petrol stations and fuel purchases.",
+          "mcc": [
+            "5541",
+            "5542"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       },
       "card_rules": {
@@ -863,6 +1083,71 @@ const cardsData = {
               }
             }
           ]
+        },
+        "online_shopping": {
+          "description": "General online shopping and e-commerce spend.",
+          "mcc": [
+            "5311",
+            "5399",
+            "5964",
+            "5969"
+          ],
+          "default": true
+        },
+        "travel": {
+          "description": "Airlines, hotels, and travel bookings.",
+          "mcc": [
+            "3000-3299",
+            "3501-3999",
+            "7011"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "utilities": {
+          "description": "Recurring bills such as telco, broadband, electricity.",
+          "mcc": [
+            "4814",
+            "4816",
+            "4899",
+            "4900"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       },
       "card_rules": {
@@ -884,6 +1169,94 @@ const cardsData = {
         "all_spend": {
           "description": "DBS Points for all spend.",
           "merchants": []
+        },
+        "supermarkets": {
+          "description": "General supermarket and grocery spend.",
+          "mcc": [
+            "5411"
+          ],
+          "default": true
+        },
+        "dining": {
+          "description": "Restaurants, cafes, fast food, and dining places.",
+          "mcc": [
+            "5812",
+            "5814"
+          ],
+          "default": true
+        },
+        "online_shopping": {
+          "description": "General online shopping and e-commerce spend.",
+          "mcc": [
+            "5311",
+            "5399",
+            "5964",
+            "5969"
+          ],
+          "default": true
+        },
+        "travel": {
+          "description": "Airlines, hotels, and travel bookings.",
+          "mcc": [
+            "3000-3299",
+            "3501-3999",
+            "7011"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "utilities": {
+          "description": "Recurring bills such as telco, broadband, electricity.",
+          "mcc": [
+            "4814",
+            "4816",
+            "4899",
+            "4900"
+          ],
+          "default": true
+        },
+        "petrol": {
+          "description": "Petrol stations and fuel purchases.",
+          "mcc": [
+            "5541",
+            "5542"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       }
     },
@@ -977,6 +1350,86 @@ const cardsData = {
               }
             }
           ]
+        },
+        "supermarkets": {
+          "description": "General supermarket and grocery spend.",
+          "mcc": [
+            "5411"
+          ],
+          "default": true
+        },
+        "dining": {
+          "description": "Restaurants, cafes, fast food, and dining places.",
+          "mcc": [
+            "5812",
+            "5814"
+          ],
+          "default": true
+        },
+        "online_shopping": {
+          "description": "General online shopping and e-commerce spend.",
+          "mcc": [
+            "5311",
+            "5399",
+            "5964",
+            "5969"
+          ],
+          "default": true
+        },
+        "travel": {
+          "description": "Airlines, hotels, and travel bookings.",
+          "mcc": [
+            "3000-3299",
+            "3501-3999",
+            "7011"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "utilities": {
+          "description": "Recurring bills such as telco, broadband, electricity.",
+          "mcc": [
+            "4814",
+            "4816",
+            "4899",
+            "4900"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       },
       "card_rules": {
@@ -1043,6 +1496,86 @@ const cardsData = {
               }
             }
           ]
+        },
+        "supermarkets": {
+          "description": "General supermarket and grocery spend.",
+          "mcc": [
+            "5411"
+          ],
+          "default": true
+        },
+        "dining": {
+          "description": "Restaurants, cafes, fast food, and dining places.",
+          "mcc": [
+            "5812",
+            "5814"
+          ],
+          "default": true
+        },
+        "online_shopping": {
+          "description": "General online shopping and e-commerce spend.",
+          "mcc": [
+            "5311",
+            "5399",
+            "5964",
+            "5969"
+          ],
+          "default": true
+        },
+        "travel": {
+          "description": "Airlines, hotels, and travel bookings.",
+          "mcc": [
+            "3000-3299",
+            "3501-3999",
+            "7011"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "utilities": {
+          "description": "Recurring bills such as telco, broadband, electricity.",
+          "mcc": [
+            "4814",
+            "4816",
+            "4899",
+            "4900"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       }
     }
@@ -1106,6 +1639,79 @@ const cardsData = {
               }
             }
           ]
+        },
+        "dining": {
+          "description": "Restaurants, cafes, fast food, and dining places.",
+          "mcc": [
+            "5812",
+            "5814"
+          ],
+          "default": true
+        },
+        "online_shopping": {
+          "description": "General online shopping and e-commerce spend.",
+          "mcc": [
+            "5311",
+            "5399",
+            "5964",
+            "5969"
+          ],
+          "default": true
+        },
+        "travel": {
+          "description": "Airlines, hotels, and travel bookings.",
+          "mcc": [
+            "3000-3299",
+            "3501-3999",
+            "7011"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "utilities": {
+          "description": "Recurring bills such as telco, broadband, electricity.",
+          "mcc": [
+            "4814",
+            "4816",
+            "4899",
+            "4900"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       },
       "card_rules": {
@@ -1117,8 +1723,8 @@ const cardsData = {
         "typical_min_spend": 800
       }
     }
-    ],
-    "UOB": [ 
+  ],
+  "UOB": [
     {
       "bank": "UOB",
       "card_name": "UOB One Card",
@@ -1456,6 +2062,69 @@ const cardsData = {
               }
             }
           ]
+        },
+        "dining": {
+          "description": "Restaurants, cafes, fast food, and dining places.",
+          "mcc": [
+            "5812",
+            "5814"
+          ],
+          "default": true
+        },
+        "online_shopping": {
+          "description": "General online shopping and e-commerce spend.",
+          "mcc": [
+            "5311",
+            "5399",
+            "5964",
+            "5969"
+          ],
+          "default": true
+        },
+        "travel": {
+          "description": "Airlines, hotels, and travel bookings.",
+          "mcc": [
+            "3000-3299",
+            "3501-3999",
+            "7011"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       },
       "card_rules": {
@@ -1659,6 +2328,84 @@ const cardsData = {
               }
             }
           ]
+        },
+        "supermarkets": {
+          "description": "General supermarket and grocery spend.",
+          "mcc": [
+            "5411"
+          ],
+          "default": true
+        },
+        "dining": {
+          "description": "Restaurants, cafes, fast food, and dining places.",
+          "mcc": [
+            "5812",
+            "5814"
+          ],
+          "default": true
+        },
+        "travel": {
+          "description": "Airlines, hotels, and travel bookings.",
+          "mcc": [
+            "3000-3299",
+            "3501-3999",
+            "7011"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "utilities": {
+          "description": "Recurring bills such as telco, broadband, electricity.",
+          "mcc": [
+            "4814",
+            "4816",
+            "4899",
+            "4900"
+          ],
+          "default": true
+        },
+        "petrol": {
+          "description": "Petrol stations and fuel purchases.",
+          "mcc": [
+            "5541",
+            "5542"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       },
       "card_rules": {
@@ -1762,6 +2509,94 @@ const cardsData = {
               }
             }
           ]
+        },
+        "supermarkets": {
+          "description": "General supermarket and grocery spend.",
+          "mcc": [
+            "5411"
+          ],
+          "default": true
+        },
+        "dining": {
+          "description": "Restaurants, cafes, fast food, and dining places.",
+          "mcc": [
+            "5812",
+            "5814"
+          ],
+          "default": true
+        },
+        "online_shopping": {
+          "description": "General online shopping and e-commerce spend.",
+          "mcc": [
+            "5311",
+            "5399",
+            "5964",
+            "5969"
+          ],
+          "default": true
+        },
+        "travel": {
+          "description": "Airlines, hotels, and travel bookings.",
+          "mcc": [
+            "3000-3299",
+            "3501-3999",
+            "7011"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "utilities": {
+          "description": "Recurring bills such as telco, broadband, electricity.",
+          "mcc": [
+            "4814",
+            "4816",
+            "4899",
+            "4900"
+          ],
+          "default": true
+        },
+        "petrol": {
+          "description": "Petrol stations and fuel purchases.",
+          "mcc": [
+            "5541",
+            "5542"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       },
       "card_rules": {
@@ -1772,8 +2607,9 @@ const cardsData = {
         "typical_caps": {},
         "typical_min_spend": null
       }
-    }],
-    "OCBC": [
+    }
+  ],
+  "OCBC": [
     {
       "bank": "OCBC",
       "card_name": "OCBC 365 Credit Card",
@@ -2226,6 +3062,61 @@ const cardsData = {
               }
             }
           ]
+        },
+        "online_shopping": {
+          "description": "General online shopping and e-commerce spend.",
+          "mcc": [
+            "5311",
+            "5399",
+            "5964",
+            "5969"
+          ],
+          "default": true
+        },
+        "travel": {
+          "description": "Airlines, hotels, and travel bookings.",
+          "mcc": [
+            "3000-3299",
+            "3501-3999",
+            "7011"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       },
       "card_rules": {
@@ -2341,6 +3232,84 @@ const cardsData = {
               }
             }
           ]
+        },
+        "supermarkets": {
+          "description": "General supermarket and grocery spend.",
+          "mcc": [
+            "5411"
+          ],
+          "default": true
+        },
+        "dining": {
+          "description": "Restaurants, cafes, fast food, and dining places.",
+          "mcc": [
+            "5812",
+            "5814"
+          ],
+          "default": true
+        },
+        "travel": {
+          "description": "Airlines, hotels, and travel bookings.",
+          "mcc": [
+            "3000-3299",
+            "3501-3999",
+            "7011"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "utilities": {
+          "description": "Recurring bills such as telco, broadband, electricity.",
+          "mcc": [
+            "4814",
+            "4816",
+            "4899",
+            "4900"
+          ],
+          "default": true
+        },
+        "petrol": {
+          "description": "Petrol stations and fuel purchases.",
+          "mcc": [
+            "5541",
+            "5542"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       },
       "card_rules": {
@@ -2361,10 +3330,99 @@ const cardsData = {
         "all_spend": {
           "description": "OCBC$ for all spend.",
           "merchants": []
+        },
+        "supermarkets": {
+          "description": "General supermarket and grocery spend.",
+          "mcc": [
+            "5411"
+          ],
+          "default": true
+        },
+        "dining": {
+          "description": "Restaurants, cafes, fast food, and dining places.",
+          "mcc": [
+            "5812",
+            "5814"
+          ],
+          "default": true
+        },
+        "online_shopping": {
+          "description": "General online shopping and e-commerce spend.",
+          "mcc": [
+            "5311",
+            "5399",
+            "5964",
+            "5969"
+          ],
+          "default": true
+        },
+        "travel": {
+          "description": "Airlines, hotels, and travel bookings.",
+          "mcc": [
+            "3000-3299",
+            "3501-3999",
+            "7011"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "utilities": {
+          "description": "Recurring bills such as telco, broadband, electricity.",
+          "mcc": [
+            "4814",
+            "4816",
+            "4899",
+            "4900"
+          ],
+          "default": true
+        },
+        "petrol": {
+          "description": "Petrol stations and fuel purchases.",
+          "mcc": [
+            "5541",
+            "5542"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       }
-    }],
-    "Citi": [  
+    }
+  ],
+  "Citi": [
     {
       "bank": "Citi",
       "card_name": "Citi Cash Back Card",
@@ -2857,6 +3915,61 @@ const cardsData = {
               }
             }
           ]
+        },
+        "online_shopping": {
+          "description": "General online shopping and e-commerce spend.",
+          "mcc": [
+            "5311",
+            "5399",
+            "5964",
+            "5969"
+          ],
+          "default": true
+        },
+        "travel": {
+          "description": "Airlines, hotels, and travel bookings.",
+          "mcc": [
+            "3000-3299",
+            "3501-3999",
+            "7011"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       },
       "card_rules": {
@@ -2880,6 +3993,94 @@ const cardsData = {
         "all_spend": {
           "description": "1.6% unlimited cashback on all spend.",
           "merchants": []
+        },
+        "supermarkets": {
+          "description": "General supermarket and grocery spend.",
+          "mcc": [
+            "5411"
+          ],
+          "default": true
+        },
+        "dining": {
+          "description": "Restaurants, cafes, fast food, and dining places.",
+          "mcc": [
+            "5812",
+            "5814"
+          ],
+          "default": true
+        },
+        "online_shopping": {
+          "description": "General online shopping and e-commerce spend.",
+          "mcc": [
+            "5311",
+            "5399",
+            "5964",
+            "5969"
+          ],
+          "default": true
+        },
+        "travel": {
+          "description": "Airlines, hotels, and travel bookings.",
+          "mcc": [
+            "3000-3299",
+            "3501-3999",
+            "7011"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "utilities": {
+          "description": "Recurring bills such as telco, broadband, electricity.",
+          "mcc": [
+            "4814",
+            "4816",
+            "4899",
+            "4900"
+          ],
+          "default": true
+        },
+        "petrol": {
+          "description": "Petrol stations and fuel purchases.",
+          "mcc": [
+            "5541",
+            "5542"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       },
       "card_rules": {
@@ -2988,6 +4189,85 @@ const cardsData = {
               }
             }
           ]
+        },
+        "supermarkets": {
+          "description": "General supermarket and grocery spend.",
+          "mcc": [
+            "5411"
+          ],
+          "default": true
+        },
+        "dining": {
+          "description": "Restaurants, cafes, fast food, and dining places.",
+          "mcc": [
+            "5812",
+            "5814"
+          ],
+          "default": true
+        },
+        "online_shopping": {
+          "description": "General online shopping and e-commerce spend.",
+          "mcc": [
+            "5311",
+            "5399",
+            "5964",
+            "5969"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "utilities": {
+          "description": "Recurring bills such as telco, broadband, electricity.",
+          "mcc": [
+            "4814",
+            "4816",
+            "4899",
+            "4900"
+          ],
+          "default": true
+        },
+        "petrol": {
+          "description": "Petrol stations and fuel purchases.",
+          "mcc": [
+            "5541",
+            "5542"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       },
       "card_rules": {
@@ -3176,6 +4456,76 @@ const cardsData = {
               }
             }
           ]
+        },
+        "supermarkets": {
+          "description": "General supermarket and grocery spend.",
+          "mcc": [
+            "5411"
+          ],
+          "default": true
+        },
+        "dining": {
+          "description": "Restaurants, cafes, fast food, and dining places.",
+          "mcc": [
+            "5812",
+            "5814"
+          ],
+          "default": true
+        },
+        "travel": {
+          "description": "Airlines, hotels, and travel bookings.",
+          "mcc": [
+            "3000-3299",
+            "3501-3999",
+            "7011"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "utilities": {
+          "description": "Recurring bills such as telco, broadband, electricity.",
+          "mcc": [
+            "4814",
+            "4816",
+            "4899",
+            "4900"
+          ],
+          "default": true
+        },
+        "petrol": {
+          "description": "Petrol stations and fuel purchases.",
+          "mcc": [
+            "5541",
+            "5542"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       }
     },
@@ -3391,6 +4741,77 @@ const cardsData = {
               }
             }
           ]
+        },
+        "dining": {
+          "description": "Restaurants, cafes, fast food, and dining places.",
+          "mcc": [
+            "5812",
+            "5814"
+          ],
+          "default": true
+        },
+        "online_shopping": {
+          "description": "General online shopping and e-commerce spend.",
+          "mcc": [
+            "5311",
+            "5399",
+            "5964",
+            "5969"
+          ],
+          "default": true
+        },
+        "travel": {
+          "description": "Airlines, hotels, and travel bookings.",
+          "mcc": [
+            "3000-3299",
+            "3501-3999",
+            "7011"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "petrol": {
+          "description": "Petrol stations and fuel purchases.",
+          "mcc": [
+            "5541",
+            "5542"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       }
     },
@@ -3426,6 +4847,84 @@ const cardsData = {
               }
             }
           ]
+        },
+        "supermarkets": {
+          "description": "General supermarket and grocery spend.",
+          "mcc": [
+            "5411"
+          ],
+          "default": true
+        },
+        "dining": {
+          "description": "Restaurants, cafes, fast food, and dining places.",
+          "mcc": [
+            "5812",
+            "5814"
+          ],
+          "default": true
+        },
+        "travel": {
+          "description": "Airlines, hotels, and travel bookings.",
+          "mcc": [
+            "3000-3299",
+            "3501-3999",
+            "7011"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "utilities": {
+          "description": "Recurring bills such as telco, broadband, electricity.",
+          "mcc": [
+            "4814",
+            "4816",
+            "4899",
+            "4900"
+          ],
+          "default": true
+        },
+        "petrol": {
+          "description": "Petrol stations and fuel purchases.",
+          "mcc": [
+            "5541",
+            "5542"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       }
     },
@@ -3478,6 +4977,85 @@ const cardsData = {
               }
             }
           ]
+        },
+        "supermarkets": {
+          "description": "General supermarket and grocery spend.",
+          "mcc": [
+            "5411"
+          ],
+          "default": true
+        },
+        "dining": {
+          "description": "Restaurants, cafes, fast food, and dining places.",
+          "mcc": [
+            "5812",
+            "5814"
+          ],
+          "default": true
+        },
+        "online_shopping": {
+          "description": "General online shopping and e-commerce spend.",
+          "mcc": [
+            "5311",
+            "5399",
+            "5964",
+            "5969"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "utilities": {
+          "description": "Recurring bills such as telco, broadband, electricity.",
+          "mcc": [
+            "4814",
+            "4816",
+            "4899",
+            "4900"
+          ],
+          "default": true
+        },
+        "petrol": {
+          "description": "Petrol stations and fuel purchases.",
+          "mcc": [
+            "5541",
+            "5542"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       }
     },
@@ -3490,6 +5068,94 @@ const cardsData = {
         "travel_luxury": {
           "description": "Premium travel, concierge, and lifestyle rewards.",
           "merchants": []
+        },
+        "supermarkets": {
+          "description": "General supermarket and grocery spend.",
+          "mcc": [
+            "5411"
+          ],
+          "default": true
+        },
+        "dining": {
+          "description": "Restaurants, cafes, fast food, and dining places.",
+          "mcc": [
+            "5812",
+            "5814"
+          ],
+          "default": true
+        },
+        "online_shopping": {
+          "description": "General online shopping and e-commerce spend.",
+          "mcc": [
+            "5311",
+            "5399",
+            "5964",
+            "5969"
+          ],
+          "default": true
+        },
+        "travel": {
+          "description": "Airlines, hotels, and travel bookings.",
+          "mcc": [
+            "3000-3299",
+            "3501-3999",
+            "7011"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "utilities": {
+          "description": "Recurring bills such as telco, broadband, electricity.",
+          "mcc": [
+            "4814",
+            "4816",
+            "4899",
+            "4900"
+          ],
+          "default": true
+        },
+        "petrol": {
+          "description": "Petrol stations and fuel purchases.",
+          "mcc": [
+            "5541",
+            "5542"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       }
     },
@@ -3502,10 +5168,99 @@ const cardsData = {
         "all_spend": {
           "description": "Citi Rewards for all spend.",
           "merchants": []
+        },
+        "supermarkets": {
+          "description": "General supermarket and grocery spend.",
+          "mcc": [
+            "5411"
+          ],
+          "default": true
+        },
+        "dining": {
+          "description": "Restaurants, cafes, fast food, and dining places.",
+          "mcc": [
+            "5812",
+            "5814"
+          ],
+          "default": true
+        },
+        "online_shopping": {
+          "description": "General online shopping and e-commerce spend.",
+          "mcc": [
+            "5311",
+            "5399",
+            "5964",
+            "5969"
+          ],
+          "default": true
+        },
+        "travel": {
+          "description": "Airlines, hotels, and travel bookings.",
+          "mcc": [
+            "3000-3299",
+            "3501-3999",
+            "7011"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "utilities": {
+          "description": "Recurring bills such as telco, broadband, electricity.",
+          "mcc": [
+            "4814",
+            "4816",
+            "4899",
+            "4900"
+          ],
+          "default": true
+        },
+        "petrol": {
+          "description": "Petrol stations and fuel purchases.",
+          "mcc": [
+            "5541",
+            "5542"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       }
-    }],
-    "HSBC": [
+    }
+  ],
+  "HSBC": [
     {
       "bank": "HSBC",
       "card_name": "HSBC Revolution Credit Card",
@@ -3671,6 +5426,84 @@ const cardsData = {
               }
             }
           ]
+        },
+        "supermarkets": {
+          "description": "General supermarket and grocery spend.",
+          "mcc": [
+            "5411"
+          ],
+          "default": true
+        },
+        "dining": {
+          "description": "Restaurants, cafes, fast food, and dining places.",
+          "mcc": [
+            "5812",
+            "5814"
+          ],
+          "default": true
+        },
+        "travel": {
+          "description": "Airlines, hotels, and travel bookings.",
+          "mcc": [
+            "3000-3299",
+            "3501-3999",
+            "7011"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "utilities": {
+          "description": "Recurring bills such as telco, broadband, electricity.",
+          "mcc": [
+            "4814",
+            "4816",
+            "4899",
+            "4900"
+          ],
+          "default": true
+        },
+        "petrol": {
+          "description": "Petrol stations and fuel purchases.",
+          "mcc": [
+            "5541",
+            "5542"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       },
       "card_rules": {
@@ -3691,6 +5524,94 @@ const cardsData = {
         "all_spend": {
           "description": "Up to 3.5% cashback on all spend.",
           "merchants": []
+        },
+        "supermarkets": {
+          "description": "General supermarket and grocery spend.",
+          "mcc": [
+            "5411"
+          ],
+          "default": true
+        },
+        "dining": {
+          "description": "Restaurants, cafes, fast food, and dining places.",
+          "mcc": [
+            "5812",
+            "5814"
+          ],
+          "default": true
+        },
+        "online_shopping": {
+          "description": "General online shopping and e-commerce spend.",
+          "mcc": [
+            "5311",
+            "5399",
+            "5964",
+            "5969"
+          ],
+          "default": true
+        },
+        "travel": {
+          "description": "Airlines, hotels, and travel bookings.",
+          "mcc": [
+            "3000-3299",
+            "3501-3999",
+            "7011"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "utilities": {
+          "description": "Recurring bills such as telco, broadband, electricity.",
+          "mcc": [
+            "4814",
+            "4816",
+            "4899",
+            "4900"
+          ],
+          "default": true
+        },
+        "petrol": {
+          "description": "Petrol stations and fuel purchases.",
+          "mcc": [
+            "5541",
+            "5542"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       }
     },
@@ -3771,6 +5692,87 @@ const cardsData = {
               }
             }
           ]
+        },
+        "dining": {
+          "description": "Restaurants, cafes, fast food, and dining places.",
+          "mcc": [
+            "5812",
+            "5814"
+          ],
+          "default": true
+        },
+        "online_shopping": {
+          "description": "General online shopping and e-commerce spend.",
+          "mcc": [
+            "5311",
+            "5399",
+            "5964",
+            "5969"
+          ],
+          "default": true
+        },
+        "travel": {
+          "description": "Airlines, hotels, and travel bookings.",
+          "mcc": [
+            "3000-3299",
+            "3501-3999",
+            "7011"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "utilities": {
+          "description": "Recurring bills such as telco, broadband, electricity.",
+          "mcc": [
+            "4814",
+            "4816",
+            "4899",
+            "4900"
+          ],
+          "default": true
+        },
+        "petrol": {
+          "description": "Petrol stations and fuel purchases.",
+          "mcc": [
+            "5541",
+            "5542"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       }
     },
@@ -3851,6 +5853,85 @@ const cardsData = {
               }
             }
           ]
+        },
+        "supermarkets": {
+          "description": "General supermarket and grocery spend.",
+          "mcc": [
+            "5411"
+          ],
+          "default": true
+        },
+        "dining": {
+          "description": "Restaurants, cafes, fast food, and dining places.",
+          "mcc": [
+            "5812",
+            "5814"
+          ],
+          "default": true
+        },
+        "online_shopping": {
+          "description": "General online shopping and e-commerce spend.",
+          "mcc": [
+            "5311",
+            "5399",
+            "5964",
+            "5969"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "utilities": {
+          "description": "Recurring bills such as telco, broadband, electricity.",
+          "mcc": [
+            "4814",
+            "4816",
+            "4899",
+            "4900"
+          ],
+          "default": true
+        },
+        "petrol": {
+          "description": "Petrol stations and fuel purchases.",
+          "mcc": [
+            "5541",
+            "5542"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       },
       "card_rules": {
@@ -3871,10 +5952,99 @@ const cardsData = {
         "all_spend": {
           "description": "HSBC Points for all spend.",
           "merchants": []
+        },
+        "supermarkets": {
+          "description": "General supermarket and grocery spend.",
+          "mcc": [
+            "5411"
+          ],
+          "default": true
+        },
+        "dining": {
+          "description": "Restaurants, cafes, fast food, and dining places.",
+          "mcc": [
+            "5812",
+            "5814"
+          ],
+          "default": true
+        },
+        "online_shopping": {
+          "description": "General online shopping and e-commerce spend.",
+          "mcc": [
+            "5311",
+            "5399",
+            "5964",
+            "5969"
+          ],
+          "default": true
+        },
+        "travel": {
+          "description": "Airlines, hotels, and travel bookings.",
+          "mcc": [
+            "3000-3299",
+            "3501-3999",
+            "7011"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "utilities": {
+          "description": "Recurring bills such as telco, broadband, electricity.",
+          "mcc": [
+            "4814",
+            "4816",
+            "4899",
+            "4900"
+          ],
+          "default": true
+        },
+        "petrol": {
+          "description": "Petrol stations and fuel purchases.",
+          "mcc": [
+            "5541",
+            "5542"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       }
-    }],
-    "Maybank": [
+    }
+  ],
+  "Maybank": [
     {
       "bank": "Maybank",
       "card_name": "Maybank Family & Friends Card",
@@ -4438,6 +6608,61 @@ const cardsData = {
               }
             }
           ]
+        },
+        "online_shopping": {
+          "description": "General online shopping and e-commerce spend.",
+          "mcc": [
+            "5311",
+            "5399",
+            "5964",
+            "5969"
+          ],
+          "default": true
+        },
+        "travel": {
+          "description": "Airlines, hotels, and travel bookings.",
+          "mcc": [
+            "3000-3299",
+            "3501-3999",
+            "7011"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       },
       "card_rules": {
@@ -4450,8 +6675,9 @@ const cardsData = {
         },
         "typical_min_spend": null
       }
-    }],
-    "Standard Chartered": [  
+    }
+  ],
+  "Standard Chartered": [
     {
       "bank": "Standard Chartered",
       "card_name": "Simply Cash Credit Card",
@@ -4461,6 +6687,94 @@ const cardsData = {
         "all_spend": {
           "description": "1.5% unlimited cashback on all categories.",
           "merchants": []
+        },
+        "supermarkets": {
+          "description": "General supermarket and grocery spend.",
+          "mcc": [
+            "5411"
+          ],
+          "default": true
+        },
+        "dining": {
+          "description": "Restaurants, cafes, fast food, and dining places.",
+          "mcc": [
+            "5812",
+            "5814"
+          ],
+          "default": true
+        },
+        "online_shopping": {
+          "description": "General online shopping and e-commerce spend.",
+          "mcc": [
+            "5311",
+            "5399",
+            "5964",
+            "5969"
+          ],
+          "default": true
+        },
+        "travel": {
+          "description": "Airlines, hotels, and travel bookings.",
+          "mcc": [
+            "3000-3299",
+            "3501-3999",
+            "7011"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "utilities": {
+          "description": "Recurring bills such as telco, broadband, electricity.",
+          "mcc": [
+            "4814",
+            "4816",
+            "4899",
+            "4900"
+          ],
+          "default": true
+        },
+        "petrol": {
+          "description": "Petrol stations and fuel purchases.",
+          "mcc": [
+            "5541",
+            "5542"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       }
     },
@@ -4571,6 +6885,84 @@ const cardsData = {
               }
             }
           ]
+        },
+        "supermarkets": {
+          "description": "General supermarket and grocery spend.",
+          "mcc": [
+            "5411"
+          ],
+          "default": true
+        },
+        "dining": {
+          "description": "Restaurants, cafes, fast food, and dining places.",
+          "mcc": [
+            "5812",
+            "5814"
+          ],
+          "default": true
+        },
+        "travel": {
+          "description": "Airlines, hotels, and travel bookings.",
+          "mcc": [
+            "3000-3299",
+            "3501-3999",
+            "7011"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "utilities": {
+          "description": "Recurring bills such as telco, broadband, electricity.",
+          "mcc": [
+            "4814",
+            "4816",
+            "4899",
+            "4900"
+          ],
+          "default": true
+        },
+        "petrol": {
+          "description": "Petrol stations and fuel purchases.",
+          "mcc": [
+            "5541",
+            "5542"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       },
       "card_rules": {
@@ -4591,10 +6983,99 @@ const cardsData = {
         "all_spend": {
           "description": "Earn points for all spend.",
           "merchants": []
+        },
+        "supermarkets": {
+          "description": "General supermarket and grocery spend.",
+          "mcc": [
+            "5411"
+          ],
+          "default": true
+        },
+        "dining": {
+          "description": "Restaurants, cafes, fast food, and dining places.",
+          "mcc": [
+            "5812",
+            "5814"
+          ],
+          "default": true
+        },
+        "online_shopping": {
+          "description": "General online shopping and e-commerce spend.",
+          "mcc": [
+            "5311",
+            "5399",
+            "5964",
+            "5969"
+          ],
+          "default": true
+        },
+        "travel": {
+          "description": "Airlines, hotels, and travel bookings.",
+          "mcc": [
+            "3000-3299",
+            "3501-3999",
+            "7011"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "utilities": {
+          "description": "Recurring bills such as telco, broadband, electricity.",
+          "mcc": [
+            "4814",
+            "4816",
+            "4899",
+            "4900"
+          ],
+          "default": true
+        },
+        "petrol": {
+          "description": "Petrol stations and fuel purchases.",
+          "mcc": [
+            "5541",
+            "5542"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       }
-    }],
-    "Trust Bank": [
+    }
+  ],
+  "Trust Bank": [
     {
       "bank": "Trust Bank",
       "card_name": "Trust Cashback Card",
@@ -4714,6 +7195,79 @@ const cardsData = {
               }
             }
           ]
+        },
+        "dining": {
+          "description": "Restaurants, cafes, fast food, and dining places.",
+          "mcc": [
+            "5812",
+            "5814"
+          ],
+          "default": true
+        },
+        "online_shopping": {
+          "description": "General online shopping and e-commerce spend.",
+          "mcc": [
+            "5311",
+            "5399",
+            "5964",
+            "5969"
+          ],
+          "default": true
+        },
+        "travel": {
+          "description": "Airlines, hotels, and travel bookings.",
+          "mcc": [
+            "3000-3299",
+            "3501-3999",
+            "7011"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "utilities": {
+          "description": "Recurring bills such as telco, broadband, electricity.",
+          "mcc": [
+            "4814",
+            "4816",
+            "4899",
+            "4900"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       },
       "card_rules": {
@@ -4753,10 +7307,92 @@ const cardsData = {
               }
             }
           ]
+        },
+        "dining": {
+          "description": "Restaurants, cafes, fast food, and dining places.",
+          "mcc": [
+            "5812",
+            "5814"
+          ],
+          "default": true
+        },
+        "online_shopping": {
+          "description": "General online shopping and e-commerce spend.",
+          "mcc": [
+            "5311",
+            "5399",
+            "5964",
+            "5969"
+          ],
+          "default": true
+        },
+        "travel": {
+          "description": "Airlines, hotels, and travel bookings.",
+          "mcc": [
+            "3000-3299",
+            "3501-3999",
+            "7011"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "utilities": {
+          "description": "Recurring bills such as telco, broadband, electricity.",
+          "mcc": [
+            "4814",
+            "4816",
+            "4899",
+            "4900"
+          ],
+          "default": true
+        },
+        "petrol": {
+          "description": "Petrol stations and fuel purchases.",
+          "mcc": [
+            "5541",
+            "5542"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       }
-    }],
-    "DCS": [
+    }
+  ],
+  "DCS": [
     {
       "bank": "DCS",
       "card_name": "DCS Titanium Card",
@@ -4818,6 +7454,94 @@ const cardsData = {
               }
             }
           ]
+        },
+        "supermarkets": {
+          "description": "General supermarket and grocery spend.",
+          "mcc": [
+            "5411"
+          ],
+          "default": true
+        },
+        "dining": {
+          "description": "Restaurants, cafes, fast food, and dining places.",
+          "mcc": [
+            "5812",
+            "5814"
+          ],
+          "default": true
+        },
+        "online_shopping": {
+          "description": "General online shopping and e-commerce spend.",
+          "mcc": [
+            "5311",
+            "5399",
+            "5964",
+            "5969"
+          ],
+          "default": true
+        },
+        "travel": {
+          "description": "Airlines, hotels, and travel bookings.",
+          "mcc": [
+            "3000-3299",
+            "3501-3999",
+            "7011"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "utilities": {
+          "description": "Recurring bills such as telco, broadband, electricity.",
+          "mcc": [
+            "4814",
+            "4816",
+            "4899",
+            "4900"
+          ],
+          "default": true
+        },
+        "petrol": {
+          "description": "Petrol stations and fuel purchases.",
+          "mcc": [
+            "5541",
+            "5542"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       },
       "card_rules": {
@@ -4838,6 +7562,94 @@ const cardsData = {
         "all_spend": {
           "description": "Rebates for all spend.",
           "merchants": []
+        },
+        "supermarkets": {
+          "description": "General supermarket and grocery spend.",
+          "mcc": [
+            "5411"
+          ],
+          "default": true
+        },
+        "dining": {
+          "description": "Restaurants, cafes, fast food, and dining places.",
+          "mcc": [
+            "5812",
+            "5814"
+          ],
+          "default": true
+        },
+        "online_shopping": {
+          "description": "General online shopping and e-commerce spend.",
+          "mcc": [
+            "5311",
+            "5399",
+            "5964",
+            "5969"
+          ],
+          "default": true
+        },
+        "travel": {
+          "description": "Airlines, hotels, and travel bookings.",
+          "mcc": [
+            "3000-3299",
+            "3501-3999",
+            "7011"
+          ],
+          "default": true
+        },
+        "transport": {
+          "description": "Public transport, taxis, and ride-hailing services.",
+          "mcc": [
+            "4111",
+            "4121"
+          ],
+          "default": true
+        },
+        "utilities": {
+          "description": "Recurring bills such as telco, broadband, electricity.",
+          "mcc": [
+            "4814",
+            "4816",
+            "4899",
+            "4900"
+          ],
+          "default": true
+        },
+        "petrol": {
+          "description": "Petrol stations and fuel purchases.",
+          "mcc": [
+            "5541",
+            "5542"
+          ],
+          "default": true
+        },
+        "entertainment": {
+          "description": "Movies, streaming, concerts, amusement parks.",
+          "mcc": [
+            "7832",
+            "7922",
+            "7996",
+            "7999"
+          ],
+          "default": true
+        },
+        "department_stores": {
+          "description": "Department stores and large retail outlets.",
+          "mcc": [
+            "5311",
+            "5651"
+          ],
+          "default": true
+        },
+        "health_wellness": {
+          "description": "Pharmacies, clinics, hospitals, gyms.",
+          "mcc": [
+            "5912",
+            "8011",
+            "8021",
+            "8099"
+          ],
+          "default": true
         }
       }
     }
