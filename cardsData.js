@@ -1,7 +1,5 @@
 const cardsData = {
-  "last_updated": "2025-08-23",
-  "currency": "SGD",
-  "cards": [
+  "DBS": [
     {
       "bank": "DBS",
       "card_name": "DBS Live Fresh Credit Card",
@@ -1047,7 +1045,9 @@ const cardsData = {
           ]
         }
       }
-    },
+    }
+  ],
+  "POSB": [
     {
       "bank": "POSB",
       "card_name": "POSB Everyday Card",
@@ -1116,7 +1116,9 @@ const cardsData = {
         "typical_caps": {},
         "typical_min_spend": 800
       }
-    },
+    }
+    ],
+    "UOB": [ 
     {
       "bank": "UOB",
       "card_name": "UOB One Card",
@@ -1770,7 +1772,8 @@ const cardsData = {
         "typical_caps": {},
         "typical_min_spend": null
       }
-    },
+    }],
+    "OCBC": [
     {
       "bank": "OCBC",
       "card_name": "OCBC 365 Credit Card",
@@ -2866,7 +2869,8 @@ const cardsData = {
         },
         "typical_min_spend": 800
       }
-    },
+    }],
+    "Citi": [  
     {
       "bank": "Citi",
       "card_name": "Citi Cash Back+ Card",
@@ -3500,7 +3504,8 @@ const cardsData = {
           "merchants": []
         }
       }
-    },
+    }],
+    "HSBC": [
     {
       "bank": "HSBC",
       "card_name": "HSBC Revolution Credit Card",
@@ -3868,7 +3873,8 @@ const cardsData = {
           "merchants": []
         }
       }
-    },
+    }],
+    "Maybank": [
     {
       "bank": "Maybank",
       "card_name": "Maybank Family & Friends Card",
@@ -4444,7 +4450,8 @@ const cardsData = {
         },
         "typical_min_spend": null
       }
-    },
+    }],
+    "Standard Chartered": [  
     {
       "bank": "Standard Chartered",
       "card_name": "Simply Cash Credit Card",
@@ -4586,7 +4593,8 @@ const cardsData = {
           "merchants": []
         }
       }
-    },
+    }],
+    "Trust Bank": [
     {
       "bank": "Trust Bank",
       "card_name": "Trust Cashback Card",
@@ -4747,7 +4755,8 @@ const cardsData = {
           ]
         }
       }
-    },
+    }],
+    "DCS": [
     {
       "bank": "DCS",
       "card_name": "DCS Titanium Card",
