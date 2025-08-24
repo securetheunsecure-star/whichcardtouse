@@ -1,300 +1,534 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Singapore Credit Card Benefits</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background: #f4f6f9;
-    }
-    h1 {
-      color: #2c3e50;
-    }
-    .search-section {
-      margin-bottom: 20px;
-    }
-    input, button, select {
-      padding: 8px;
-      margin: 5px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-    button {
-      background: #3498db;
-      color: white;
-      cursor: pointer;
-      border: none;
-    }
-    button:hover {
-      background: #2980b9;
-    }
-    #results {
-      margin-top: 20px;
-    }
-    .card-result {
-      padding: 15px;
-      margin-bottom: 10px;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    .my-cards {
-      margin-top: 30px;
-      padding: 15px;
-      background: #ecf0f1;
-      border-radius: 8px;
-    }
-    .tag {
-      display: inline-block;
-      background: #3498db;
-      color: #fff;
-      padding: 5px 10px;
-      border-radius: 15px;
-      margin: 3px;
-    }
-    .tag button {
-      margin-left: 8px;
-      background: transparent;
-      border: none;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
-  </style>
+<meta charset="UTF-8" />
+<title>Best Credit Card Finder (Singapore)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root{
+    --bg:#f5f7fb;
+    --card:#ffffff;
+    --text:#1f2d3d;
+    --muted:#6b7a90;
+    --primary:#3a7afe;
+    --primary-700:#2e62cb;
+    --green:#16a34a;
+    --red:#ef4444;
+    --chip:#e9efff;
+    --border:#e5e9f2;
+    --shadow:0 8px 20px rgba(31,45,61,.08);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; padding:24px;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+    background:var(--bg); color:var(--text);
+  }
+  header{ display:flex; align-items:center; gap:12px; margin-bottom:20px; flex-wrap:wrap;}
+  header h1{ font-size:1.6rem; margin:0; }
+  .app{
+    max-width:1100px; margin:0 auto;
+  }
+  .panel{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    box-shadow:var(--shadow);
+    padding:16px 16px;
+  }
+  .grid{
+    display:grid; gap:16px;
+    grid-template-columns: 1.1fr .9fr;
+  }
+  @media (max-width: 980px){
+    .grid{ grid-template-columns: 1fr; }
+  }
+  .row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+
+  input[type="text"]{
+    flex:1; min-width:220px;
+    padding:12px 12px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    outline:none;
+    font-size:15px;
+    background:#fff;
+  }
+  button, select{
+    padding:10px 12px; border-radius:12px; border:1px solid var(--border);
+    background:#fff; color:var(--text); cursor:pointer; font-size:14px;
+  }
+  .btn-primary{
+    background:var(--primary); color:#fff; border:none;
+  }
+  .btn-primary:hover{ background:var(--primary-700); }
+  .btn-ghost{ background:#fff; }
+  .btn-danger{ background:var(--red); border:none; color:#fff; }
+  .btn-icon{
+    width:44px; height:44px; display:inline-grid; place-items:center;
+    border-radius:12px; border:1px solid var(--border);
+    background:#fff;
+  }
+
+  /* Autocomplete dropdown */
+  .ac-wrap{ position:relative; flex:1; }
+  .ac-list{
+    position:absolute; top:100%; left:0; right:0; z-index:20;
+    background:#fff; border:1px solid var(--border); border-radius:12px;
+    margin-top:6px; box-shadow:var(--shadow); max-height:320px; overflow:auto;
+  }
+  .ac-item{
+    padding:10px 12px; cursor:pointer; display:flex; justify-content:space-between; gap:12px;
+  }
+  .ac-item em{ font-style:normal; color:var(--muted); }
+  .ac-item:hover{ background:#f5f8ff; }
+
+  /* Wallet */
+  .wallet{
+    display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;
+  }
+  .chip{
+    background:var(--chip); color:var(--primary-700); border:1px solid #cddcff;
+    padding:6px 10px; border-radius:999px; font-size:13px; display:inline-flex; align-items:center; gap:8px;
+  }
+  .chip button{
+    border:none; background:transparent; color:#4769ff; cursor:pointer; font-weight:700; padding:0 2px;
+  }
+
+  /* Results */
+  .results{ margin-top:18px; display:grid; gap:14px; }
+  .result{
+    background:#fff; border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow);
+    padding:14px 14px;
+  }
+  .result .title{ display:flex; align-items:center; gap:8px; font-weight:700; }
+  .pill{
+    font-size:12px; padding:4px 8px; border-radius:999px; background:#ecfdf5; color:var(--green); border:1px solid #bbf7d0;
+  }
+  .score{ margin-left:auto; font-weight:800; }
+  .muted{ color:var(--muted); }
+  .benefit-line{ margin-top:8px; padding-top:8px; border-top:1px dashed var(--border); font-size:14px; line-height:1.5; }
+  .kv{ display:inline-flex; gap:8px; flex-wrap:wrap; margin-top:6px; }
+  .kv span{ background:#f6f7fb; border:1px solid var(--border); padding:4px 8px; border-radius:8px; font-size:12px; }
+
+  /* Section titles */
+  h2{ font-size:1.1rem; margin:0 0 10px; }
+  .section{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+
+  /* Helpers */
+  .tiny{ font-size:12px; }
+</style>
 </head>
 <body>
-  <h1>Best Credit Card Finder (Singapore)</h1>
+  <div class="app">
+    <header class="section">
+      <h1>Best Credit Card Finder — Singapore</h1>
+      <div class="tiny muted">Search by merchant • Saved cards first • Runs fully offline</div>
+    </header>
 
-  <div class="search-section">
-    <label for="merchantInput">Merchant:</label>
-    <input type="text" id="merchantInput" placeholder="Type merchant name...">
-    <button id="voice-btn">🎤</button>
-    <button id="search-btn">Find Best Cards</button>
+    <div class="grid">
+      <!-- LEFT: Search panel -->
+      <div class="panel">
+        <h2>Find Best Cards</h2>
+        <div class="row">
+          <div class="ac-wrap">
+            <input id="merchantInput" type="text" placeholder="Type a merchant (e.g., FairPrice, Grab, Shopee, Starbucks)…" autocomplete="off" />
+            <div id="acList" class="ac-list" style="display:none;"></div>
+          </div>
+          <button id="voiceBtn" class="btn-icon" title="Voice input">🎤</button>
+          <button id="searchBtn" class="btn-primary">Find Best Cards</button>
+        </div>
+        <div class="tiny muted" style="margin-top:6px;">Tip: Use voice input, or start typing to see suggestions.</div>
+
+        <div class="results" id="results"></div>
+      </div>
+
+      <!-- RIGHT: Wallet + Add cards -->
+      <div class="panel">
+        <div class="section">
+          <h2>My Saved Cards</h2>
+          <button id="clearWallet" class="btn-ghost tiny">Clear All</button>
+        </div>
+        <div class="wallet" id="wallet"></div>
+
+        <hr style="border:none; border-top:1px solid var(--border); margin:14px 0;" />
+
+        <h2>Add a Card</h2>
+        <div class="row">
+          <select id="addCardSelect" title="Select a card to add"></select>
+          <button id="addCardBtn" class="btn-primary">Add Card</button>
+        </div>
+        <div class="tiny muted" style="margin-top:6px;">Added cards are saved to this device and prioritized in results.</div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:16px;">
+      <h2>How ranking works</h2>
+      <div class="tiny">
+        We rank by an estimated “benefit score”. Cashback % counts at face value; miles per dollar get a higher weight; generic “X points” multipliers are normalized. 
+        Cards you saved always show first, ordered by score; then other market cards by score.
+      </div>
+    </div>
   </div>
 
-  <div class="my-cards">
-    <h3>My Cards</h3>
-    <select id="addCardSelect"></select>
-    <button id="addCardBtn">Add Card</button>
-    <div id="myCardsList"></div>
-  </div>
-
-  <div id="results"></div>
-
-  <!-- Load Cards JSON -->
+  <!-- Load dataset -->
   <script src="cardsData.js"></script>
-<script>
-  console.log(cardsData); // all cards are available here
-</script>
+
   <script>
-    // ===================== Autocomplete =====================
-    const merchantInput = document.getElementById('merchantInput');
-    let merchantList = [];
+    /*************************
+     * Utilities / Parsing
+     *************************/
+    const isArray = Array.isArray;
+    function toNumber(s){
+      if (s == null) return 0;
+      if (typeof s === 'number') return s;
+      const m = String(s).replace(/,/g,'').match(/-?\d+(\.\d+)?/);
+      return m ? parseFloat(m[0]) : 0;
+    }
+    function includesCI(hay, needle){
+      return hay.toLowerCase().includes(needle.toLowerCase());
+    }
+    function sameCI(a, b){ return a.toLowerCase() === b.toLowerCase(); }
 
-    function buildMerchantList() {
-      merchantList = [];
-      for (const bank in cardsData) {
-        cardsData[bank].forEach(card => {
-          for (const cat in card.benefits) {
-            (card.benefits[cat].merchants || []).forEach(m => {
-              merchantList.push(m.name);
-              (m.aliases || []).forEach(alias => merchantList.push(alias));
-            });
-          }
-        });
-      }
-      merchantList = [...new Set(merchantList)];
+    // Match merchant by exact name, alias, or loose contains (both directions)
+    function merchantMatches(input, merchantObj){
+      const inputLC = input.toLowerCase();
+      const names = [merchantObj.name, ...(merchantObj.aliases || [])].map(x => x.toLowerCase());
+      if (names.some(n => n === inputLC)) return true;
+      if (names.some(n => n.includes(inputLC))) return true;
+      if (names.some(n => inputLC.includes(n))) return true;
+      return false;
     }
 
-    function setupAutocomplete() {
-      merchantInput.addEventListener("input", function() {
-        const val = this.value.toLowerCase();
-        closeAllLists();
-        if (!val) return false;
+    // Normalize benefit score for ranking
+    // Heuristics:
+    //  - cashback: % → score += %
+    //  - miles/mpd: N mpd → score += N * 2.2
+    //  - points_multiplier: "10X" → 10 * 0.8
+    //  - Add small bonuses for stacked promos; small penalties for high min spend / low caps
+    function computeBenefitScore(details = {}){
+      let score = 0;
 
-        const listDiv = document.createElement("div");
-        listDiv.setAttribute("id", this.id + "autocomplete-list");
-        listDiv.setAttribute("class", "autocomplete-items");
-        this.parentNode.appendChild(listDiv);
-
-        merchantList.filter(m => m.toLowerCase().includes(val)).slice(0,8).forEach(m => {
-          const itemDiv = document.createElement("div");
-          itemDiv.innerHTML = "<strong>" + m.substr(0, val.length) + "</strong>" + m.substr(val.length);
-          itemDiv.addEventListener("click", () => {
-            merchantInput.value = m;
-            closeAllLists();
-          });
-          listDiv.appendChild(itemDiv);
-        });
-      });
-
-      function closeAllLists(elmnt) {
-        const items = document.getElementsByClassName("autocomplete-items");
-        for (let i = 0; i < items.length; i++) {
-          if (elmnt != items[i] && elmnt != merchantInput) {
-            items[i].parentNode.removeChild(items[i]);
-          }
-        }
+      // Cashback
+      if (details.cashback){
+        score += toNumber(details.cashback);
       }
-      document.addEventListener("click", e => closeAllLists(e.target));
+      // Miles per dollar
+      if (details.miles || details.mpd){
+        const mpd = details.mpd ? toNumber(details.mpd) : toNumber(details.miles);
+        score += mpd * 2.2;
+      }
+      // Points multiplier
+      if (details.points_multiplier || details.points){
+        const mult = toNumber(details.points_multiplier || details.points); // e.g. "10X"
+        if (mult) score += mult * 0.8;
+      }
+      // Extra bonus if benefits stack (boolean-ish)
+      if (details.stacked || details.stackable) score += 1.5;
+
+      // Min spend penalty (light)
+      if (details.min_spend){
+        const ms = toNumber(details.min_spend);
+        if (ms >= 800) score -= 1.5;
+        else if (ms >= 300) score -= 0.8;
+      }
+      // Cap penalty (very light)
+      if (details.cap){
+        const cap = toNumber(details.cap);
+        if (cap && cap < 50) score -= 0.5;
+      }
+      // Fallback: if nothing parsed but there is a benefit, give a tiny baseline
+      if (score === 0 && Object.keys(details).length > 0) score = 0.2;
+
+      return Math.max(0, score);
     }
 
-    // ===================== Voice Input =====================
-    document.getElementById('voice-btn').addEventListener('click', () => {
-      const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-      recognition.lang = 'en-SG';
-      recognition.start();
-      recognition.onresult = event => {
-        merchantInput.value = event.results[0][0].transcript;
-      };
-    });
+    /*************************
+     * Wallet (localStorage)
+     *************************/
+    const WALLET_KEY = 'sg_card_wallet_v1';
+    let wallet = loadWallet();
 
-    // ===================== My Cards Feature =====================
-    const myCards = [];
-    const myCardsListDiv = document.getElementById('myCardsList');
-    const addCardSelect = document.getElementById('addCardSelect');
-    const addCardBtn = document.getElementById('addCardBtn');
-
-    function populateCardSelect() {
-      addCardSelect.innerHTML = '';
-      for (const bank in cardsData) {
-        cardsData[bank].forEach(card => {
-          const option = document.createElement('option');
-          option.value = `${bank}::${card.card_name}`;
-          option.text = `${bank} - ${card.card_name}`;
-          addCardSelect.appendChild(option);
-        });
-      }
+    function loadWallet(){
+      try{
+        const raw = localStorage.getItem(WALLET_KEY);
+        return raw ? JSON.parse(raw) : [];
+      }catch(e){ return []; }
+    }
+    function saveWallet(){
+      localStorage.setItem(WALLET_KEY, JSON.stringify(wallet));
+    }
+    function walletHas(key){ return wallet.includes(key); }
+    function walletAdd(key){
+      if (!walletHas(key)){ wallet.push(key); saveWallet(); renderWallet(); }
+    }
+    function walletRemove(key){
+      wallet = wallet.filter(k => k !== key); saveWallet(); renderWallet();
+    }
+    function clearWallet(){
+      wallet = []; saveWallet(); renderWallet();
     }
 
-    addCardBtn.addEventListener('click', () => {
-      const val = addCardSelect.value;
-      if (!myCards.includes(val)) {
-        myCards.push(val);
-        renderMyCards();
-      }
-    });
+    /*************************
+     * Build merchant index +
+     * Populate add-card select
+     *************************/
+    const merchantIndex = new Set();
+    function buildMerchantIndexAndSelect(){
+      const sel = document.getElementById('addCardSelect');
+      sel.innerHTML = '';
+      const frag = document.createDocumentFragment();
 
-    function renderMyCards() {
-      myCardsListDiv.innerHTML = '';
-      myCards.forEach(c => {
-        const div = document.createElement('span');
-        div.className = 'tag';
-        div.innerHTML = c + ' <button onclick="removeMyCard(\''+c+'\')">x</button>';
-        myCardsListDiv.appendChild(div);
-      });
-    }
+      for (const bank in cardsData){
+        const arr = cardsData[bank];
+        if (!isArray(arr)) continue;
 
-    window.removeMyCard = function(card) {
-      const idx = myCards.indexOf(card);
-      if (idx > -1) {
-        myCards.splice(idx,1);
-        renderMyCards();
-      }
-    }
+        arr.forEach(card => {
+          // Build select option
+          const key = `${bank}::${card.card_name}`;
+          const opt = document.createElement('option');
+          opt.value = key;
+          opt.textContent = `${bank} — ${card.card_name}`;
+          frag.appendChild(opt);
 
-    // ===================== Find Best Cards =====================
-    document.getElementById('search-btn').addEventListener('click', findBestCards);
-
-function findBestCards() {
-  const merchant = document.getElementById('merchantInput').value.trim().toLowerCase();
-  const resultsDiv = document.getElementById('results');
-  resultsDiv.innerHTML = '';
-
-  if (!merchant) {
-    resultsDiv.innerHTML = '<p>Please enter a merchant name.</p>';
-    return;
-  }
-
-  const results = [];
-
-  for (const bank in cardsData) {
-    if (!Array.isArray(cardsData[bank])) continue;
-
-    cardsData[bank].forEach(card => {
-      let matchedBenefits = [];
-
-      for (const category in card.benefits) {
-        const benefit = card.benefits[category];
-        if (!benefit.merchants) continue;
-
-        benefit.merchants.forEach(m => {
-          const names = [m.name.toLowerCase(), ...(m.aliases || []).map(a => a.toLowerCase())];
-          if (names.includes(merchant)) {
-            // compute score based on benefit details
-            let score = 0;
-            if (m.benefit_details) {
-              if (m.benefit_details.cashback) {
-                score = parseFloat(m.benefit_details.cashback.replace('%','')) || 0;
-              } else if (m.benefit_details.miles) {
-                score = parseFloat(m.benefit_details.miles.replace('mpd','')) * 2; // weight miles higher
-              }
+          // Collect merchants (names + aliases)
+          if (card.benefits){
+            for (const cat in card.benefits){
+              const b = card.benefits[cat];
+              (b.merchants || []).forEach(m => {
+                merchantIndex.add(m.name);
+                (m.aliases || []).forEach(a => merchantIndex.add(a));
+              });
             }
+          }
+        });
+      }
+      sel.appendChild(frag);
+    }
 
-            matchedBenefits.push({
+    /*************************
+     * Autocomplete
+     *************************/
+    const acList = document.getElementById('acList');
+    const merchantInput = document.getElementById('merchantInput');
+
+    function renderAC(){
+      const q = merchantInput.value.trim();
+      if (!q){ acList.style.display='none'; acList.innerHTML=''; return; }
+      const ql = q.toLowerCase();
+
+      const matches = [];
+      for (const m of merchantIndex){
+        if (m.toLowerCase().includes(ql)) matches.push(m);
+        if (matches.length >= 30) break;
+      }
+
+      if (matches.length === 0){ acList.style.display='none'; acList.innerHTML=''; return; }
+
+      acList.innerHTML = '';
+      matches.forEach(m => {
+        const div = document.createElement('div');
+        div.className = 'ac-item';
+        // highlight match
+        const idx = m.toLowerCase().indexOf(ql);
+        let label = m;
+        if (idx >= 0){
+          label = m.substring(0, idx) + '<strong>' + m.substring(idx, idx+q.length) + '</strong>' + m.substring(idx+q.length);
+        }
+        div.innerHTML = `<span>${label}</span> <em>merchant</em>`;
+        div.addEventListener('click', () => {
+          merchantInput.value = m;
+          acList.style.display = 'none';
+          acList.innerHTML = '';
+        });
+        acList.appendChild(div);
+      });
+      acList.style.display = 'block';
+    }
+
+    merchantInput.addEventListener('input', renderAC);
+    document.addEventListener('click', (e)=>{
+      if (!acList.contains(e.target) && e.target !== merchantInput){
+        acList.style.display='none';
+      }
+    });
+
+    /*************************
+     * Voice input
+     *************************/
+    const voiceBtn = document.getElementById('voiceBtn');
+    voiceBtn.addEventListener('click', ()=>{
+      const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SR){ alert('Voice input not supported in this browser.'); return; }
+      const rec = new SR();
+      rec.lang = 'en-SG';
+      rec.interimResults = false;
+      rec.maxAlternatives = 1;
+      rec.onresult = (e)=>{
+        const text = e.results[0][0].transcript;
+        merchantInput.value = text;
+        renderAC();
+      };
+      rec.start();
+    });
+
+    /*************************
+     * Wallet UI
+     *************************/
+    const walletDiv = document.getElementById('wallet');
+    function renderWallet(){
+      walletDiv.innerHTML = '';
+      if (wallet.length === 0){
+        walletDiv.innerHTML = '<div class="muted tiny">No cards saved yet.</div>';
+        return;
+      }
+      wallet.forEach(key => {
+        const chip = document.createElement('div');
+        chip.className = 'chip';
+        chip.innerHTML = `
+          <span>${key}</span>
+          <button title="Remove" aria-label="Remove card">×</button>
+        `;
+        chip.querySelector('button').addEventListener('click', ()=> walletRemove(key));
+        walletDiv.appendChild(chip);
+      });
+    }
+    document.getElementById('clearWallet').addEventListener('click', clearWallet);
+
+    // Add card UX
+    document.getElementById('addCardBtn').addEventListener('click', ()=>{
+      const val = document.getElementById('addCardSelect').value;
+      if (val) walletAdd(val);
+    });
+
+    /*************************
+     * Search & Ranking
+     *************************/
+    document.getElementById('searchBtn').addEventListener('click', findBestCards);
+
+    function findBestCards(){
+      const input = merchantInput.value.trim();
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML = '';
+
+      if (!input){
+        resultsDiv.innerHTML = '<div class="muted">Please enter a merchant name.</div>';
+        return;
+      }
+
+      const resultsMap = new Map(); // key: bank::card, value: aggregated result
+
+      for (const bank in cardsData){
+        const arr = cardsData[bank];
+        if (!isArray(arr)) continue;
+
+        arr.forEach(card => {
+          const cardKey = `${bank}::${card.card_name}`;
+          let matched = [];
+
+          if (card.benefits){
+            for (const cat in card.benefits){
+              const b = card.benefits[cat];
+              (b.merchants || []).forEach(m => {
+                if (merchantMatches(input, m)){
+                  // One benefit line
+                  const details = m.benefit_details || {};
+                  matched.push({
+                    category: cat,
+                    description: b.description || '',
+                    details,
+                    score: computeBenefitScore(details),
+                    merchantName: m.name,
+                    mcc: m.mcc || []
+                  });
+                }
+              });
+            }
+          }
+
+          if (matched.length){
+            // Aggregate: score = max single benefit (avoid double counting), but show all lines
+            const bestScore = Math.max(...matched.map(x => x.score));
+            const isUserCard = walletHas(cardKey);
+
+            resultsMap.set(cardKey, {
               bank,
               card_name: card.card_name,
-              category,
-              description: benefit.description,
-              details: m.benefit_details || {},
-              score
+              isUserCard,
+              bestScore,
+              lines: matched
             });
           }
         });
       }
 
-      if (matchedBenefits.length > 0) {
-        // aggregate score
-        const totalScore = matchedBenefits.reduce((sum, b) => sum + b.score, 0);
-        results.push({
-          bank,
-          card_name: card.card_name,
-          benefits: matchedBenefits,
-          score: totalScore,
-          isUserCard: userCards.includes(card.card_name) // <== check against saved cards
-        });
+      const results = Array.from(resultsMap.values());
+      if (results.length === 0){
+        resultsDiv.innerHTML = `<div class="muted">No matching benefits found for “${input}”. Try a different spelling or alias.</div>`;
+        return;
       }
-    });
-  }
 
-  if (results.length === 0) {
-    resultsDiv.innerHTML = `<p>No matching benefits found for "${merchant}".</p>`;
-    return;
-  }
+      // Sort: user's cards first, then market; within each, by bestScore desc
+      results.sort((a,b)=>{
+        if (a.isUserCard && !b.isUserCard) return -1;
+        if (!a.isUserCard && b.isUserCard) return 1;
+        return b.bestScore - a.bestScore;
+      });
 
-  // sort: user’s cards first, then market cards; within group, sort by score
-  results.sort((a, b) => {
-    if (a.isUserCard && !b.isUserCard) return -1;
-    if (!a.isUserCard && b.isUserCard) return 1;
-    return b.score - a.score;
-  });
+      // Render
+      const frag = document.createDocumentFragment();
+      results.forEach(r => {
+        const wrap = document.createElement('div');
+        wrap.className = 'result';
+        const myPill = r.isUserCard ? `<span class="pill">My Card</span>` : '';
+        const scoreTxt = r.bestScore ? r.bestScore.toFixed(2) : '—';
 
-  // render results
-  results.forEach(r => {
-    const div = document.createElement('div');
-    div.className = 'card-result';
-    div.innerHTML = `
-      <strong>${r.bank} - ${r.card_name}</strong> 
-      ${r.isUserCard ? '<span style="color:green;">(My Card)</span>' : ''}
-      <br>
-      Benefits:<br>
-      ${r.benefits.map(b => `
-        - ${b.category}: ${b.description} 
-          (Cashback: ${b.details.cashback || '-'}, 
-           Miles: ${b.details.miles || '-'}, 
-           Cap: ${b.details.cap || '-'}, 
-           Min Spend: ${b.details.min_spend || '-'})
-      `).join('<br>')}
-    `;
-    resultsDiv.appendChild(div);
-  });
-}
-    // ===================== Init =====================
-    buildMerchantList();
-    setupAutocomplete();
-    populateCardSelect();
+        let linesHtml = r.lines.map(l => {
+          const kvs = [];
+          if (l.details.cashback) kvs.push(`<span>Cashback: <strong>${l.details.cashback}</strong></span>`);
+          if (l.details.miles || l.details.mpd) kvs.push(`<span>Miles: <strong>${l.details.mpd || l.details.miles}</strong></span>`);
+          if (l.details.points_multiplier || l.details.points) kvs.push(`<span>Points: <strong>${l.details.points_multiplier || l.details.points}</strong></span>`);
+          if (l.details.cap) kvs.push(`<span>Cap: ${l.details.cap}</span>`);
+          if (l.details.min_spend) kvs.push(`<span>Min spend: ${l.details.min_spend}</span>`);
+          if (l.details.channel) kvs.push(`<span>Channel: ${l.details.channel}</span>`);
+          if (l.mcc && l.mcc.length) kvs.push(`<span>MCC: ${l.mcc.join(', ')}</span>`);
+
+          return `
+            <div class="benefit-line">
+              <div><strong>${l.category}</strong> — ${l.description || ''}</div>
+              <div class="kv">${kvs.join('')}</div>
+            </div>
+          `;
+        }).join('');
+
+        wrap.innerHTML = `
+          <div class="title">
+            <div>${r.bank} — ${r.card_name}</div>
+            ${myPill}
+            <div class="score" title="Estimated benefit score">Score: ${scoreTxt}</div>
+          </div>
+          ${linesHtml}
+        `;
+
+        frag.appendChild(wrap);
+      });
+      resultsDiv.appendChild(frag);
+    }
+
+    /*************************
+     * Bootstrap
+     *************************/
+    (function init(){
+      // Basic data sanity: ensure cardsData is { bank: Array<card> }
+      for (const bank in cardsData){
+        if (!isArray(cardsData[bank])){
+          console.warn(`cardsData[${bank}] is not an array; converting to []`);
+          cardsData[bank] = [];
+        }
+      }
+      buildMerchantIndexAndSelect();
+      renderWallet();
+    })();
   </script>
 </body>
 </html>
