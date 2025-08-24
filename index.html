@@ -1,232 +1,259 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Singapore Card Benefits Finder</title>
-<style>
-body {
-  font-family: Arial, sans-serif;
-  margin: 20px;
-  background: #f5f7fa;
-  color: #333;
-}
-h1 { text-align: center; color: #2c3e50; }
-.container { max-width: 1000px; margin: auto; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
-input, select, button { padding: 8px; margin: 5px 0; border-radius: 5px; border: 1px solid #ccc; font-size: 14px; }
-button { cursor: pointer; background-color: #2980b9; color: white; border: none; }
-button:hover { background-color: #3498db; }
-label { display: block; margin-top: 10px; font-weight: bold; }
-#results-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-#results-table th, #results-table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-#results-table th { background-color: #2980b9; color: white; }
-.owned { background-color: #dff0d8; }
-.autocomplete-suggestions { border: 1px solid #ccc; max-height: 150px; overflow-y: auto; position: absolute; background: white; z-index: 1000; }
-.autocomplete-suggestion { padding: 5px; cursor: pointer; }
-.autocomplete-suggestion:hover { background: #3498db; color: white; }
-.card-list { max-height: 150px; overflow-y: auto; border: 1px solid #ccc; padding: 5px; }
-.card-item { display: flex; justify-content: space-between; padding: 5px; border-bottom: 1px solid #eee; }
-.card-item button { background-color: #e74c3c; }
-.card-item button:hover { background-color: #c0392b; }
-</style>
+  <meta charset="UTF-8">
+  <title>Singapore Credit Card Benefits</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #f4f6f9;
+    }
+    h1 {
+      color: #2c3e50;
+    }
+    .search-section {
+      margin-bottom: 20px;
+    }
+    input, button, select {
+      padding: 8px;
+      margin: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #3498db;
+      color: white;
+      cursor: pointer;
+      border: none;
+    }
+    button:hover {
+      background: #2980b9;
+    }
+    #results {
+      margin-top: 20px;
+    }
+    .card-result {
+      padding: 15px;
+      margin-bottom: 10px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .my-cards {
+      margin-top: 30px;
+      padding: 15px;
+      background: #ecf0f1;
+      border-radius: 8px;
+    }
+    .tag {
+      display: inline-block;
+      background: #3498db;
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 15px;
+      margin: 3px;
+    }
+    .tag button {
+      margin-left: 8px;
+      background: transparent;
+      border: none;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-<h1>Singapore Card Benefits Finder</h1>
+  <h1>Best Credit Card Finder (Singapore)</h1>
 
-<label for="merchant-input">Merchant (type or use voice 🎤)</label>
-<input type="text" id="merchant-input" placeholder="Enter merchant name">
-<button id="voice-btn">🎤 Speak</button>
+  <div class="search-section">
+    <label for="merchantInput">Merchant:</label>
+    <input type="text" id="merchantInput" placeholder="Type merchant name...">
+    <button id="voice-btn">🎤</button>
+    <button id="search-btn">Find Best Cards</button>
+  </div>
 
-<label for="available-cards">Add Card:</label>
-<select id="available-cards"></select>
-<button id="add-card-btn">Add</button>
+  <div class="my-cards">
+    <h3>My Cards</h3>
+    <select id="addCardSelect"></select>
+    <button id="addCardBtn">Add Card</button>
+    <div id="myCardsList"></div>
+  </div>
 
-<label>Your Cards:</label>
-<div id="user-card-list" class="card-list"></div>
+  <div id="results"></div>
 
-<button id="search-btn">Find Best Cards</button>
+  <!-- Load Cards JSON -->
+  <script src="cardsData.js"></script>
 
-<table id="results-table">
-  <thead>
-    <tr>
-      <th>Rank</th>
-      <th>Card</th>
-      <th>Benefit Types</th>
-      <th>Details</th>
-    </tr>
-  </thead>
-  <tbody></tbody>
-</table>
-</div>
+  <script>
+    // ===================== Autocomplete =====================
+    const merchantInput = document.getElementById('merchantInput');
+    let merchantList = [];
 
-<script>
-// =================== Cards Data ===================
-let cardsData = {};
+    function buildMerchantList() {
+      merchantList = [];
+      for (const bank in cardsData) {
+        cardsData[bank].forEach(card => {
+          for (const cat in card.benefits) {
+            (card.benefits[cat].merchants || []).forEach(m => {
+              merchantList.push(m.name);
+              (m.aliases || []).forEach(alias => merchantList.push(alias));
+            });
+          }
+        });
+      }
+      merchantList = [...new Set(merchantList)];
+    }
 
-// Load the JSON file dynamically
-fetch('cards_merchants_enriched.json') // <-- replace with your JSON file path
-  .then(response => {
-    if (!response.ok) throw new Error('Failed to load JSON');
-    return response.json();
-  })
-  .then(data => {
-    cardsData = data;
-    console.log('Cards data loaded:', cardsData);
-    initApp();
-    // You can now call a function to initialize autocomplete, populate card list, etc.
-  })
-  .catch(err => {
-    console.error('Error loading JSON:', err);
-  });
+    function setupAutocomplete() {
+      merchantInput.addEventListener("input", function() {
+        const val = this.value.toLowerCase();
+        closeAllLists();
+        if (!val) return false;
 
-// =================== Globals ===================
+        const listDiv = document.createElement("div");
+        listDiv.setAttribute("id", this.id + "autocomplete-list");
+        listDiv.setAttribute("class", "autocomplete-items");
+        this.parentNode.appendChild(listDiv);
 
-function initApp() {
-let merchantList = [];
-for (const bank in cardsData) {
-  cardsData[bank].forEach(card => {
-    for (const benefit in card.benefits) {
-      card.benefits[benefit].merchants.forEach(m => {
-        merchantList.push(m.name);
-        m.aliases.forEach(a => merchantList.push(a));
+        merchantList.filter(m => m.toLowerCase().includes(val)).slice(0,8).forEach(m => {
+          const itemDiv = document.createElement("div");
+          itemDiv.innerHTML = "<strong>" + m.substr(0, val.length) + "</strong>" + m.substr(val.length);
+          itemDiv.addEventListener("click", () => {
+            merchantInput.value = m;
+            closeAllLists();
+          });
+          listDiv.appendChild(itemDiv);
+        });
+      });
+
+      function closeAllLists(elmnt) {
+        const items = document.getElementsByClassName("autocomplete-items");
+        for (let i = 0; i < items.length; i++) {
+          if (elmnt != items[i] && elmnt != merchantInput) {
+            items[i].parentNode.removeChild(items[i]);
+          }
+        }
+      }
+      document.addEventListener("click", e => closeAllLists(e.target));
+    }
+
+    // ===================== Voice Input =====================
+    document.getElementById('voice-btn').addEventListener('click', () => {
+      const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+      recognition.lang = 'en-SG';
+      recognition.start();
+      recognition.onresult = event => {
+        merchantInput.value = event.results[0][0].transcript;
+      };
+    });
+
+    // ===================== My Cards Feature =====================
+    const myCards = [];
+    const myCardsListDiv = document.getElementById('myCardsList');
+    const addCardSelect = document.getElementById('addCardSelect');
+    const addCardBtn = document.getElementById('addCardBtn');
+
+    function populateCardSelect() {
+      addCardSelect.innerHTML = '';
+      for (const bank in cardsData) {
+        cardsData[bank].forEach(card => {
+          const option = document.createElement('option');
+          option.value = `${bank}::${card.card_name}`;
+          option.text = `${bank} - ${card.card_name}`;
+          addCardSelect.appendChild(option);
+        });
+      }
+    }
+
+    addCardBtn.addEventListener('click', () => {
+      const val = addCardSelect.value;
+      if (!myCards.includes(val)) {
+        myCards.push(val);
+        renderMyCards();
+      }
+    });
+
+    function renderMyCards() {
+      myCardsListDiv.innerHTML = '';
+      myCards.forEach(c => {
+        const div = document.createElement('span');
+        div.className = 'tag';
+        div.innerHTML = c + ' <button onclick="removeMyCard(\''+c+'\')">x</button>';
+        myCardsListDiv.appendChild(div);
       });
     }
-  });
-}
-merchantList = [...new Set(merchantList)]; // unique
-console.log('Cards data loaded:', merchantList);
 
-let userCards = []; // format: {bank, card}
-
-// =================== Populate Add Card Dropdown ===================
-const availableCardsSelect = document.getElementById('available-cards');
-for (const bank in cardsData) {
-  cardsData[bank].forEach(card => {
-    const option = document.createElement('option');
-    option.value = `${bank}||${card.card_name}`;
-    option.text = `${bank} - ${card.card_name}`;
-    availableCardsSelect.appendChild(option);
-  });
-
-}
-  console.log('Cards data loaded:', availableCardsSelect);
-
-// =================== Add Card ===================
-document.getElementById('add-card-btn').addEventListener('click', () => {
-  const val = availableCardsSelect.value;
-  if (!val) return;
-  const [bank, card] = val.split('||');
-  if (!userCards.some(c=>c.bank===bank && c.card===card)) {
-    userCards.push({bank, card});
-    renderUserCards();
-  }
-});
-  console.log('Cards data loaded:', userCards);
-
-// =================== Autocomplete ===================
-const merchantInput = document.getElementById('merchant-input');
-let suggestionsBox;
-merchantInput.addEventListener('input', function() {
-  const val = this.value.toLowerCase();
-  closeSuggestions();
-  if (!val) return;
-  suggestionsBox = document.createElement('div');
-  suggestionsBox.classList.add('autocomplete-suggestions');
-  this.parentNode.appendChild(suggestionsBox);
-  merchantList.forEach(merchant => {
-    if (merchant.toLowerCase().includes(val)) {
-      const div = document.createElement('div');
-      div.classList.add('autocomplete-suggestion');
-      div.innerText = merchant;
-      div.addEventListener('click', () => {
-        merchantInput.value = merchant;
-        closeSuggestions();
-      });
-      suggestionsBox.appendChild(div);
+    window.removeMyCard = function(card) {
+      const idx = myCards.indexOf(card);
+      if (idx > -1) {
+        myCards.splice(idx,1);
+        renderMyCards();
+      }
     }
-  });
-});  
-}
-// =================== Render User Cards ===================
-function renderUserCards() {
-  const list = document.getElementById('user-card-list');
-  list.innerHTML = '';
-  userCards.forEach((c, idx) => {
-    const div = document.createElement('div');
-    div.classList.add('card-item');
-    div.innerHTML = `<span>${c.bank} - ${c.card}</span>
-                     <button onclick="removeCard(${idx})">Remove</button>`;
-    list.appendChild(div);
-  });
-}
-function removeCard(idx) { userCards.splice(idx,1); renderUserCards(); }
 
+    // ===================== Find Best Cards =====================
+    document.getElementById('search-btn').addEventListener('click', findBestCards);
 
-function closeSuggestions() { if (suggestionsBox) suggestionsBox.remove(); }
+    function findBestCards() {
+      const merchant = merchantInput.value.trim().toLowerCase();
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML = '';
 
-// =================== Voice Input ===================
-const voiceBtn = document.getElementById('voice-btn');
-voiceBtn.addEventListener('click', () => {
-  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-  recognition.lang = 'en-US';
-  recognition.start();
-  recognition.onresult = function(event) {
-    merchantInput.value = event.results[0][0].transcript;
-    recognition.stop();
-  };
-});
+      if (!merchant) {
+        resultsDiv.innerHTML = '<p>Please enter a merchant name.</p>';
+        return;
+      }
 
-// =================== Find Best Cards ===================
-document.getElementById('search-btn').addEventListener('click', findBestCards);
+      const results = [];
 
-function findBestCards() {
-  const merchant = merchantInput.value.trim().toLowerCase();
-  const results = [];
-
-  for (const bank in cardsData) {
-    const bankCards = cardsData[bank];
-console.log('Cards data loaded:', bankCards);
-    bankCards.forEach(card => {
-      let totalScore = 0;
-      let benefitDetails = [];
-
-      for (const benefit in card.benefits) {
-        card.benefits[benefit].merchants.forEach(m => {
-          if (m.name.toLowerCase() === merchant || m.aliases.some(a => a.toLowerCase() === merchant)) {
-            const desc = card.benefits[benefit].description;
-            let score = 0;
-            const match = desc.match(/(\d+\.?\d*)/);
-            if (match) score = parseFloat(match[1]);
-            totalScore += score;
-            benefitDetails.push({type: benefit, description: desc, score});
+      for (const bank in cardsData) {
+        cardsData[bank].forEach(card => {
+          let matchedBenefits = [];
+          for (const category in card.benefits) {
+            const benefit = card.benefits[category];
+            (benefit.merchants || []).forEach(m => {
+              const names = [m.name.toLowerCase(), ...(m.aliases || []).map(a => a.toLowerCase())];
+              if (names.includes(merchant)) {
+                matchedBenefits.push({
+                  bank,
+                  card_name: card.card_name,
+                  category,
+                  description: benefit.description,
+                  details: m.benefit_details || {}
+                });
+              }
+            });
+          }
+          if (matchedBenefits.length > 0) {
+            results.push(...matchedBenefits);
           }
         });
       }
 
-      if (benefitDetails.length > 0) {
-        results.push({
-          bank, card: card.card_name, totalScore, benefitDetails,
-          owned: userCards.some(c=>c.bank===bank && c.card===card.card_name)
-        });
+      if (results.length === 0) {
+        resultsDiv.innerHTML = `<p>No matching benefits found for "${merchant}".</p>`;
+        return;
       }
-    });
-  }
 
-  results.sort((a,b) => b.totalScore - a.totalScore);
-  const tbody = document.querySelector('#results-table tbody');
-  tbody.innerHTML = '';
-  results.forEach((r,i) => {
-    const tr = document.createElement('tr');
-    if (r.owned) tr.classList.add('owned');
-    const benefitsText = r.benefitDetails.map(d => `${d.type}: ${d.description}`).join('<br>');
-    tr.innerHTML = `<td>${i+1}</td>
-                    <td>${r.bank} - ${r.card}</td>
-                    <td>${r.benefitDetails.map(d=>d.type).join(', ')}</td>
-                    <td>${benefitsText}</td>`;
-    tbody.appendChild(tr);
-  });
-}
-</script>
+      results.forEach(r => {
+        const div = document.createElement('div');
+        div.className = 'card-result';
+        div.innerHTML = `
+          <strong>${r.bank} - ${r.card_name}</strong><br>
+          Category: ${r.category}<br>
+          ${r.description}<br>
+          Cashback: ${r.details.cashback || '-'} | Cap: ${r.details.cap || '-'} | Min Spend: ${r.details.min_spend || '-'}
+        `;
+        resultsDiv.appendChild(div);
+      });
+    }
+
+    // ===================== Init =====================
+    buildMerchantList();
+    setupAutocomplete();
+    populateCardSelect();
+  </script>
 </body>
 </html>
