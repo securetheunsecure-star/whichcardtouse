@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Credit Card Offers</title>
+  <title>Singapore Credit Card Optimizer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body { font-family: Arial, sans-serif; background: #f9f9f9; padding: 10px; margin: 0; }
@@ -40,6 +40,9 @@
     .autocomplete-suggestion { padding: 10px; cursor: pointer; }
     .autocomplete-suggestion:hover { background: #eee; }
 
+    /* Highlight user cards */
+    .user-card { background: #d1ecf1 !important; border-left: 4px solid #17a2b8; }
+
     /* Mobile adjustments */
     @media (max-width: 600px) {
       h1 { font-size: 1.3em; }
@@ -51,15 +54,21 @@
 </head>
 <body>
   <div class="container">
-    <h1>Singapore Credit Card Optimizer</h1>
+    <h1>Credit Card Offers</h1>
+
+    <!-- Results FIRST -->
+    <div class="box">
+      <h2>Best Card Suggestions</h2>
+      <ul id="results-list"><li>Enter a merchant or category to see offers.</li></ul>
+    </div>
 
     <!-- Search -->
     <div class="box">
       <h2>Search Merchant</h2>
       <input type="text" id="merchant-input" placeholder="Enter merchant or category...">
       <div id="autocomplete" class="autocomplete-suggestions"></div>
+      <button id="search-btn">Fetch Best Card Offers</button>
       <button id="voice-btn">🎤 Speak</button>
-      <button id="search-btn">Find Best Cards</button>
     </div>
 
     <!-- User cards -->
@@ -68,12 +77,6 @@
       <select id="add-card-select"></select>
       <button id="add-card-btn">Add Card</button>
       <ul id="user-cards-list"></ul>
-    </div>
-
-    <!-- Results -->
-    <div class="box">
-      <h2>Best Cards</h2>
-      <ul id="results-list"></ul>
     </div>
   </div>
 
@@ -87,6 +90,39 @@
     const userCards = [];
     const addCardSelect = document.getElementById('add-card-select');
     const userCardsList = document.getElementById('user-cards-list');
+
+    /* ============ Keyword → Category Mapping ============ */
+    const keywordToCategory = {
+      "pizza": "dining",
+      "restaurant": "dining",
+      "food": "dining",
+      "cafe": "dining",
+      "groceries": "supermarkets",
+      "supermarket": "supermarkets",
+      "ntuc": "supermarkets",
+      "fairprice": "supermarkets",
+      "cold storage": "supermarkets",
+      "shopee": "online_shopping",
+      "lazada": "online_shopping",
+      "grab": "transport",
+      "uber": "transport",
+      "gocar": "transport",
+      "comfortdelgro": "transport",
+      "singtel": "utilities",
+      "starhub": "utilities",
+      "m1": "utilities",
+      "sp group": "utilities",
+      "shell": "petrol",
+      "esso": "petrol",
+      "caltex": "petrol",
+      "movie": "entertainment",
+      "cinema": "entertainment",
+      "netflix": "entertainment",
+      "doctor": "health_wellness",
+      "clinic": "health_wellness",
+      "hospital": "health_wellness",
+      "pharmacy": "health_wellness"
+    };
 
     /* ============ Build Merchant + Category List ============ */
     let merchantsList = [];
@@ -140,38 +176,61 @@
       });
     }
 
-    document.getElementById('add-card-btn').addEventListener('click', () => {
-      const val = addCardSelect.value;
-      if (!userCards.includes(val)) {
-        userCards.push(val);
+    const userCards = JSON.parse(localStorage.getItem("userCards") || "[]");
+
+// Render on page load
+renderUserCards();
+
+document.getElementById('add-card-btn').addEventListener('click', () => {
+  const val = addCardSelect.value;
+  if (!userCards.includes(val)) {
+    userCards.push(val);
+    localStorage.setItem("userCards", JSON.stringify(userCards));
+    renderUserCards();
+  }
+});
+
+function renderUserCards() {
+  userCardsList.innerHTML = '';
+  userCards.forEach(c => {
+    const li = document.createElement('li');
+    li.textContent = c;
+    const removeBtn = document.createElement('button');
+    removeBtn.textContent = 'Remove';
+    removeBtn.style.background = '#dc3545';
+    removeBtn.style.marginLeft = '10px';
+    removeBtn.onclick = () => {
+      const idx = userCards.indexOf(c);
+      if (idx > -1) {
+        userCards.splice(idx, 1);
+        localStorage.setItem("userCards", JSON.stringify(userCards));
         renderUserCards();
       }
-    });
+    };
+    li.appendChild(removeBtn);
+    userCardsList.appendChild(li);
+  });
+}
 
-    function renderUserCards() {
-      userCardsList.innerHTML = '';
-      userCards.forEach(c => {
-        const li = document.createElement('li');
-        li.textContent = c;
-        const removeBtn = document.createElement('button');
-        removeBtn.textContent = 'Remove';
-        removeBtn.style.background = '#dc3545';
-        removeBtn.style.marginLeft = '10px';
-        removeBtn.onclick = () => {
-          const idx = userCards.indexOf(c);
-          if (idx > -1) userCards.splice(idx, 1);
-          renderUserCards();
-        };
-        li.appendChild(removeBtn);
-        userCardsList.appendChild(li);
-      });
-    }
-
-    /* ============ Find Best Cards with Category Fallback ============ */
+    /* ============ Find Best Cards with Smart Mapping ============ */
     document.getElementById('search-btn').addEventListener('click', findBestCards);
 
     function findBestCards() {
-      const merchant = merchantInput.value.trim().toLowerCase();
+      let merchant = merchantInput.value.trim().toLowerCase();
+
+      // Check keyword mapping
+      if (keywordToCategory[merchant]) {
+        merchant = keywordToCategory[merchant];
+      } else {
+        // Try partial matches (e.g., "pizza hut" contains "pizza")
+        for (const key in keywordToCategory) {
+          if (merchant.includes(key)) {
+            merchant = keywordToCategory[key];
+            break;
+          }
+        }
+      }
+
       const results = [];
 
       for (const bank in cardsData) {
@@ -219,10 +278,11 @@
       const resultsList = document.getElementById('results-list');
       resultsList.innerHTML = '';
       if (results.length === 0) {
-        resultsList.innerHTML = '<li>No matching benefits found. Try a category like "Dining", "Travel", or "Utilities".</li>';
+        resultsList.innerHTML = '<li>No matching benefits found. Try keywords like "pizza", "groceries", "uber".</li>';
       } else {
         results.forEach(r => {
           const li = document.createElement('li');
+          li.className = r.priority === 1 ? "user-card" : "";
           li.innerHTML = `<strong>${r.bank} - ${r.card}</strong><br>${r.benefits.join('<br>')}`;
           resultsList.appendChild(li);
         });
