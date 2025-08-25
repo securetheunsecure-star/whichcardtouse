@@ -356,11 +356,19 @@ function findBestCards() {
         // Match category directly
         if (category.toLowerCase() === merchant) {
           totalScore += 10;
+          if (benefit.merchants){
           benefitDetails.push({
             category,
             description: benefit.description,
             merchants: benefit.merchants.map(m => m.name).join(", ")
           });
+          }else{
+            benefitDetails.push({
+            category,
+            description: benefit.description,
+            merchants: merchant
+          });
+          }
         }
 
         // Match merchant names / aliases
