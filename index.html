@@ -264,6 +264,7 @@ function populateMerchantList() {
         }
 
         // Add merchants as options
+        if (card.benefits[category].merchants) {
         card.benefits[category].merchants.forEach(m => {
           if (!added.has(m.name)) {
             const opt = document.createElement("option");
@@ -281,6 +282,7 @@ function populateMerchantList() {
             }
           });
         });
+        }
       }
     });
   }
@@ -362,6 +364,7 @@ function findBestCards() {
         }
 
         // Match merchant names / aliases
+        if (benefit.merchants){
         benefit.merchants.forEach(m => {
           const allNames = [m.name.toLowerCase(), ...m.aliases.map(a => a.toLowerCase())];
           if (allNames.includes(merchant)) {
@@ -373,6 +376,7 @@ function findBestCards() {
             });
           }
         });
+      }
       }
 
       if (totalScore > 0) {
