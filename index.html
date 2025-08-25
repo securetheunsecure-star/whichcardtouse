@@ -94,9 +94,10 @@
     <!-- Search -->
     <div class="box">
       <h2>Search Merchant</h2>
-      <input type="text" id="merchant-input" placeholder="Enter merchant or category...">
-      <datalist id="merchant-list"></datalist>
+<label for="merchant-input">Merchant / Category:</label>
+<input list="merchant-list" id="merchant-input" placeholder="Type or select a merchant/category..." />
       <div id="autocomplete" class="autocomplete-suggestions"></div>
+<datalist id="merchant-list"></datalist>
       <button id="search-btn">Fetch Best Card Offers</button>
       <button id="voice-btn">🎤 Speak</button>
     </div>
