@@ -50,6 +50,37 @@
       button { font-size: 0.9em; padding: 10px; }
       input[type="text"], select { font-size: 0.9em; }
     }
+
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.results-table th, .results-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.results-table th {
+  background-color: #007bff;
+  color: white;
+}
+
+.results-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.tag {
+  background: #28a745;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
   </style>
 </head>
 <body>
@@ -225,8 +256,6 @@ function findBestCards() {
   }
 
   const results = [];
-
-  // Normalize merchant/category
   let matchedCategory = mapMerchantToCategory(merchantInputValue);
 
   for (const bank in cardsData) {
@@ -236,7 +265,7 @@ function findBestCards() {
       let benefitDetail = "";
 
       for (const [cat, details] of Object.entries(card.benefits)) {
-        // Match by merchant
+        // Merchant-level match
         if (details.merchants) {
           const found = details.merchants.find(m =>
             m.name.toLowerCase() === merchantInputValue ||
@@ -249,10 +278,10 @@ function findBestCards() {
           }
         }
 
-        // Match by category fallback
+        // Category fallback
         if (!matched && matchedCategory && cat === matchedCategory) {
           matched = true;
-          score = computeScore(details.description) * 0.8; // lower score for fallback
+          score = computeScore(details.description) * 0.8;
           benefitDetail = `${details.description} (${cat} - fallback)`;
         }
       }
@@ -274,25 +303,40 @@ function findBestCards() {
     return;
   }
 
-  // Sort: user cards first, then by score desc
+  // Sort & take top 5
   results.sort((a, b) => {
     if (a.isUserCard && !b.isUserCard) return -1;
     if (!a.isUserCard && b.isUserCard) return 1;
     return b.score - a.score;
   });
+  const topResults = results.slice(0, 5);
 
-  // Render results
-  results.forEach(r => {
-    const div = document.createElement("div");
-    div.className = "card-suggestion";
-    div.innerHTML = `
-      <h3>${r.card} <small>(${r.bank})</small></h3>
-      <p><strong>Benefit:</strong> ${r.benefitDetail}</p>
-      <p><strong>Score:</strong> ${r.score.toFixed(2)}</p>
-      ${r.isUserCard ? "<span class='tag'>My Card</span>" : ""}
-    `;
-    resultsContainer.appendChild(div);
-  });
+  // Render as table
+  const table = document.createElement("table");
+  table.className = "results-table";
+  table.innerHTML = `
+    <thead>
+      <tr>
+        <th>Card</th>
+        <th>Bank</th>
+        <th>Benefit</th>
+        <th>Score</th>
+        <th>Tag</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${topResults.map(r => `
+        <tr>
+          <td>${r.card}</td>
+          <td>${r.bank}</td>
+          <td>${r.benefitDetail}</td>
+          <td>${r.score.toFixed(2)}</td>
+          <td>${r.isUserCard ? "<span class='tag'>My Card</span>" : ""}</td>
+        </tr>
+      `).join("")}
+    </tbody>
+  `;
+  resultsContainer.appendChild(table);
 }
 
 // -------------------------
