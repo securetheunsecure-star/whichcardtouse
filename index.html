@@ -214,82 +214,112 @@ function renderUserCards() {
     /* ============ Find Best Cards with Smart Mapping ============ */
     document.getElementById('search-btn').addEventListener('click', findBestCards);
 
-    function findBestCards() {
-      let merchant = merchantInput.value.trim().toLowerCase();
+function findBestCards() {
+  const merchantInputValue = merchantInput.value.trim().toLowerCase();
+  const resultsContainer = document.getElementById('results');
+  resultsContainer.innerHTML = "";
 
-      // Check keyword mapping
-      if (keywordToCategory[merchant]) {
-        merchant = keywordToCategory[merchant];
-      } else {
-        // Try partial matches (e.g., "pizza hut" contains "pizza")
-        for (const key in keywordToCategory) {
-          if (merchant.includes(key)) {
-            merchant = keywordToCategory[key];
-            break;
+  if (!merchantInputValue) {
+    resultsContainer.innerHTML = "<p>Please enter a merchant or category.</p>";
+    return;
+  }
+
+  const results = [];
+
+  // Normalize merchant/category
+  let matchedCategory = mapMerchantToCategory(merchantInputValue);
+
+  for (const bank in cardsData) {
+    cardsData[bank].forEach(card => {
+      let matched = false;
+      let score = 0;
+      let benefitDetail = "";
+
+      for (const [cat, details] of Object.entries(card.benefits)) {
+        // Match by merchant
+        if (details.merchants) {
+          const found = details.merchants.find(m =>
+            m.name.toLowerCase() === merchantInputValue ||
+            m.aliases?.some(a => a.toLowerCase() === merchantInputValue)
+          );
+          if (found) {
+            matched = true;
+            score = computeScore(details.description);
+            benefitDetail = `${details.description} (${cat})`;
           }
+        }
+
+        // Match by category fallback
+        if (!matched && matchedCategory && cat === matchedCategory) {
+          matched = true;
+          score = computeScore(details.description) * 0.8; // lower score for fallback
+          benefitDetail = `${details.description} (${cat} - fallback)`;
         }
       }
 
-      const results = [];
-
-      for (const bank in cardsData) {
-        cardsData[bank].forEach(card => {
-          let match = false;
-          let benefitDetails = [];
-
-          for (const cat in card.benefits) {
-            const benefit = card.benefits[cat];
-
-            // Exact merchant match
-            if (benefit.merchants && benefit.merchants.some(m => m.name.toLowerCase() === merchant)) {
-              match = true;
-              benefitDetails.push(`${benefit.description} at ${merchant}`);
-            }
-            // Category match
-            else if (cat.toLowerCase() === merchant) {
-              match = true;
-              benefitDetails.push(`${benefit.description} (${cat})`);
-            }
-            // Fallback: partial match in description
-            else if (benefit.description.toLowerCase().includes(merchant)) {
-              match = true;
-              benefitDetails.push(`${benefit.description} (${cat})`);
-            }
-          }
-
-          if (match) {
-            const isUserCard = userCards.some(c => c === bank + '|' + card.card_name);
-            results.push({
-              bank,
-              card: card.card_name,
-              benefits: benefitDetails,
-              priority: isUserCard ? 1 : 0
-            });
-          }
+      if (matched) {
+        results.push({
+          bank,
+          card: card.card_name,
+          score,
+          benefitDetail,
+          isUserCard: userCards.includes(card.card_name)
         });
       }
+    });
+  }
 
-      results.sort((a, b) => b.priority - a.priority);
-      renderResults(results);
-    }
+  if (results.length === 0) {
+    resultsContainer.innerHTML = `<p>No strong matches found for "${merchantInputValue}".</p>`;
+    return;
+  }
 
-    function renderResults(results) {
-      const resultsList = document.getElementById('results-list');
-      const valueVar = 0;
-      resultsList.innerHTML = '';
-      if (results.length === 0) {
-        resultsList.innerHTML = '<li>No matching benefits found. Try keywords like "pizza", "groceries", "uber".</li>';
-      } else {
-        results.forEach(r => {
-          if (valueVar === 5) {return;}
-          const li = document.createElement('li');
-          li.className = r.priority === 1 ? "user-card" : "";
-          li.innerHTML = `<strong>${r.bank} - ${r.card}</strong><br>${r.benefits.join('<br>')}`;
-          resultsList.appendChild(li);
-          valueVar += 1;
-        });
-      }
-    }
+  // Sort: user cards first, then by score desc
+  results.sort((a, b) => {
+    if (a.isUserCard && !b.isUserCard) return -1;
+    if (!a.isUserCard && b.isUserCard) return 1;
+    return b.score - a.score;
+  });
+
+  // Render results
+  results.forEach(r => {
+    const div = document.createElement("div");
+    div.className = "card-suggestion";
+    div.innerHTML = `
+      <h3>${r.card} <small>(${r.bank})</small></h3>
+      <p><strong>Benefit:</strong> ${r.benefitDetail}</p>
+      <p><strong>Score:</strong> ${r.score.toFixed(2)}</p>
+      ${r.isUserCard ? "<span class='tag'>My Card</span>" : ""}
+    `;
+    resultsContainer.appendChild(div);
+  });
+}
+
+// -------------------------
+// Helper: map merchant to category
+// -------------------------
+function mapMerchantToCategory(input) {
+  if (input.includes("pizza") || input.includes("restaurant") || input.includes("food")) return "dining";
+  if (input.includes("grocer") || input.includes("supermarket")) return "supermarkets";
+  if (input.includes("petrol") || input.includes("esso") || input.includes("shell")) return "petrol";
+  if (input.includes("travel") || input.includes("flight") || input.includes("hotel")) return "travel";
+  if (input.includes("shop") || input.includes("online")) return "online_shopping";
+  if (input.includes("utility") || input.includes("bill") || input.includes("electric")) return "utilities";
+  if (input.includes("movie") || input.includes("netflix") || input.includes("cinema")) return "entertainment";
+  return null;
+}
+
+// -------------------------
+// Helper: compute score from description
+// -------------------------
+function computeScore(desc) {
+  let score = 1;
+  const percentMatch = desc.match(/(\d+)%/);
+  if (percentMatch) score = parseInt(percentMatch[1]);
+  else if (desc.includes("mpd")) score = 50; // arbitrary base score for miles
+  else if (desc.includes("point")) score = 20;
+  return score;
+}
   </script>
 </body>
 </html>
