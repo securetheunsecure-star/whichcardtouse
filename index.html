@@ -281,7 +281,7 @@ function renderUserCards() {
         resultsList.innerHTML = '<li>No matching benefits found. Try keywords like "pizza", "groceries", "uber".</li>';
       } else {
         results.forEach(r => {
-          if (valueVar == 5) {return;}
+          if (valueVar === 5) {return;}
           const li = document.createElement('li');
           li.className = r.priority === 1 ? "user-card" : "";
           li.innerHTML = `<strong>${r.bank} - ${r.card}</strong><br>${r.benefits.join('<br>')}`;
