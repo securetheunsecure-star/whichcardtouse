@@ -95,6 +95,7 @@
     <div class="box">
       <h2>Search Merchant</h2>
       <input type="text" id="merchant-input" placeholder="Enter merchant or category...">
+      <datalist id="merchant-list"></datalist>
       <div id="autocomplete" class="autocomplete-suggestions"></div>
       <button id="search-btn">Fetch Best Card Offers</button>
       <button id="voice-btn">🎤 Speak</button>
@@ -103,7 +104,7 @@
     <!-- Results FIRST -->
     <div class="box">
       <h2>Best Card Suggestions</h2>
-      <ul id="results-list"><li>Enter a merchant or category to see offers.</li></ul>
+      <ul id="results"><li>Enter a merchant or category to see offers.</li></ul>
     </div>
 
     <!-- User cards -->
@@ -245,6 +246,47 @@ function renderUserCards() {
     userCardsList.appendChild(li);
   });
 }
+
+    // ================= Merchant List Population =================
+function populateMerchantList() {
+  const datalist = document.getElementById("merchant-list");
+  const added = new Set();
+
+  for (const bank in cardsData) {
+    cardsData[bank].forEach(card => {
+      for (const category in card.benefits) {
+        // Add category as option
+        if (!added.has(category)) {
+          const opt = document.createElement("option");
+          opt.value = category;
+          datalist.appendChild(opt);
+          added.add(category);
+        }
+
+        // Add merchants as options
+        card.benefits[category].merchants.forEach(m => {
+          if (!added.has(m.name)) {
+            const opt = document.createElement("option");
+            opt.value = m.name;
+            datalist.appendChild(opt);
+            added.add(m.name);
+          }
+          // Add aliases
+          m.aliases.forEach(alias => {
+            if (!added.has(alias)) {
+              const opt = document.createElement("option");
+              opt.value = alias;
+              datalist.appendChild(opt);
+              added.add(alias);
+            }
+          });
+        });
+      }
+    });
+  }
+}
+
+    document.addEventListener("DOMContentLoaded", populateMerchantList);
 
     /* ============ Find Best Cards with Smart Mapping ============ */
     document.getElementById('search-btn').addEventListener('click', findBestCards);
