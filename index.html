@@ -80,7 +80,11 @@
   border-radius: 4px;
   font-size: 12px;
 }
-
+    
+.highlight-row {
+  background-color: #f0fff4;
+  font-weight: bold;
+}
   </style>
 </head>
 <body>
@@ -245,99 +249,155 @@ function renderUserCards() {
     /* ============ Find Best Cards with Smart Mapping ============ */
     document.getElementById('search-btn').addEventListener('click', findBestCards);
 
-function findBestCards() {
-  const merchantInputValue = merchantInput.value.trim().toLowerCase();
-  const resultsContainer = document.getElementById('results-list');
-  resultsContainer.innerHTML = "";
+    // ================= Keyword Mapping =================
+const keywordMap = {
+  "pizza": "dining",
+  "restaurant": "dining",
+  "food": "dining",
+  "drink": "dining",
+  "coffee": "dining",
+  "tea": "dining",
+  "groceries": "supermarkets",
+  "grocery": "supermarkets",
+  "supermarket": "supermarkets",
+  "petrol": "petrol",
+  "fuel": "petrol",
+  "gas": "petrol",
+  "electricity": "utilities",
+  "water": "utilities",
+  "phone": "utilities",
+  "telco": "utilities",
+  "grab": "transport",
+  "uber": "transport",
+  "taxi": "transport",
+  "bus": "public_transport",
+  "mrt": "public_transport",
+  "train": "public_transport",
+  "electronics": "electronics",
+  "mobile": "electronics",
+  "laptop": "electronics",
+  "travel": "travel",
+  "hotel": "travel",
+  "flight": "travel"
+};
 
-  if (!merchantInputValue) {
-    resultsContainer.innerHTML = "<p>Please enter a merchant or category.</p>";
-    return;
+function normalizeMerchantInput(input) {
+  input = input.toLowerCase();
+  for (const key in keywordMap) {
+    if (input.includes(key)) {
+      return keywordMap[key];
+    }
   }
+  return input; // fallback to raw input
+}
+// ================= Find Best Cards =================
+function findBestCards() {
+  let merchant = merchantInput.value.trim();
+  if (!merchant) return;
 
+  merchant = normalizeMerchantInput(merchant);
   const results = [];
-  let matchedCategory = mapMerchantToCategory(merchantInputValue);
+
+  // Load saved cards
+  let savedCards = JSON.parse(localStorage.getItem("savedCards")) || [];
 
   for (const bank in cardsData) {
     cardsData[bank].forEach(card => {
-      let matched = false;
-      let score = 0;
-      let benefitDetail = "";
+      let totalScore = 0;
+      let benefitDetails = [];
 
-      for (const [cat, details] of Object.entries(card.benefits)) {
-        // Merchant-level match
-        if (details.merchants) {
-          const found = details.merchants.find(m =>
-            m.name.toLowerCase() === merchantInputValue ||
-            m.aliases?.some(a => a.toLowerCase() === merchantInputValue)
-          );
-          if (found) {
-            matched = true;
-            score = computeScore(details.description);
-            benefitDetail = `${details.description} (${cat})`;
+      for (const category in card.benefits) {
+        const benefit = card.benefits[category];
+
+        // Match category directly
+        if (category.toLowerCase() === merchant) {
+          totalScore += 10;
+          benefitDetails.push({
+            category,
+            description: benefit.description,
+            merchants: benefit.merchants.map(m => m.name).join(", ")
+          });
+        }
+
+        // Match merchant names / aliases
+        benefit.merchants.forEach(m => {
+          const allNames = [m.name.toLowerCase(), ...m.aliases.map(a => a.toLowerCase())];
+          if (allNames.includes(merchant)) {
+            totalScore += 20;
+            benefitDetails.push({
+              category,
+              description: benefit.description,
+              merchants: m.name
+            });
           }
-        }
-
-        // Category fallback
-        if (!matched && matchedCategory && cat === matchedCategory) {
-          matched = true;
-          score = computeScore(details.description) * 0.8;
-          benefitDetail = `${details.description} (${cat} - fallback)`;
-        }
+        });
       }
 
-      if (matched) {
+      if (totalScore > 0) {
         results.push({
           bank,
-          card: card.card_name,
-          score,
-          benefitDetail,
-          isUserCard: userCards.includes(card.card_name)
+          cardName: card.card_name,
+          score: totalScore,
+          isSaved: savedCards.includes(`${bank} - ${card.card_name}`),
+          benefits: benefitDetails
         });
       }
     });
   }
 
-  if (results.length === 0) {
-    resultsContainer.innerHTML = `<p>No strong matches found for "${merchantInputValue}".</p>`;
+  // Sort results:
+  // 1. Saved cards first
+  // 2. Higher score within each group
+  results.sort((a, b) => {
+    if (a.isSaved && !b.isSaved) return -1;
+    if (!a.isSaved && b.isSaved) return 1;
+    return b.score - a.score;
+  });
+
+  // Limit to top 5
+  const topResults = results.slice(0, 5);
+
+  // Render results in table
+  const container = document.getElementById("results");
+  container.innerHTML = "";
+
+  if (topResults.length === 0) {
+    container.innerHTML = "<p>No matching card benefits found.</p>";
     return;
   }
 
-  // Sort & take top 5
-  results.sort((a, b) => {
-    if (a.isUserCard && !b.isUserCard) return -1;
-    if (!a.isUserCard && b.isUserCard) return 1;
-    return b.score - a.score;
-  });
-  const topResults = results.slice(0, 5);
-
-  // Render as table
-  const table = document.createElement("table");
-  table.className = "results-table";
-  table.innerHTML = `
-    <thead>
-      <tr>
-        <th>Card</th>
-        <th>Bank</th>
-        <th>Benefit</th>
-        <th>Score</th>
-        <th>Tag</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${topResults.map(r => `
+  let table = `
+    <table class="results-table">
+      <thead>
         <tr>
-          <td>${r.card}</td>
-          <td>${r.bank}</td>
-          <td>${r.benefitDetail}</td>
-          <td>${r.score.toFixed(2)}</td>
-          <td>${r.isUserCard ? "<span class='tag'>My Card</span>" : ""}</td>
+          <th>Bank</th>
+          <th>Card</th>
+          <th>Category</th>
+          <th>Merchants</th>
+          <th>Benefits</th>
         </tr>
-      `).join("")}
-    </tbody>
+      </thead>
+      <tbody>
   `;
-  resultsContainer.appendChild(table);
+
+  topResults.forEach(r => {
+    r.benefits.forEach(b => {
+      table += `
+        <tr class="${r.isSaved ? "highlight-row" : ""}">
+          <td>${r.bank}</td>
+          <td>${r.cardName}</td>
+          <td>${b.category}</td>
+          <td>${b.merchants}</td>
+          <td>${b.description}</td>
+        </tr>
+      `;
+    });
+  });
+
+  table += "</tbody></table>";
+  container.innerHTML = table;
 }
+
 
 // -------------------------
 // Helper: map merchant to category
