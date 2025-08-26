@@ -337,18 +337,20 @@ function populateMerchantOptions() {
           added.add(category);
         }
         // Add merchants
-        card.benefits[category].merchants.forEach(m => {
-          if (!added.has(m.name)) {
-            select.insertAdjacentHTML("beforeend", `<option value="${m.name}">${m.name}</option>`);
-            added.add(m.name);
-          }
-          m.aliases.forEach(alias => {
-            if (!added.has(alias)) {
-              select.insertAdjacentHTML("beforeend", `<option value="${alias}">${alias}</option>`);
-              added.add(alias);
+        if (card.benefits[category].merchants){
+          card.benefits[category].merchants.forEach(m => {
+            if (!added.has(m.name)) {
+              select.insertAdjacentHTML("beforeend", `<option value="${m.name}">${m.name}</option>`);
+              added.add(m.name);
             }
+            m.aliases.forEach(alias => {
+              if (!added.has(alias)) {
+                select.insertAdjacentHTML("beforeend", `<option value="${alias}">${alias}</option>`);
+                added.add(alias);
+              }
+            });
           });
-        });
+        }
       }
     });
   }
