@@ -153,13 +153,13 @@ button:hover {
     font-size: 1.1rem;
   }
 
-  .results-table th, .results-table td {
+.results-table th, .results-table td {
     font-size: 0.9rem;
     padding: 6px;
   }
 }
 
-    .results-table {
+.results-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 15px;
@@ -211,7 +211,7 @@ button:hover {
   }
 }
 
-    .saved-row {
+.saved-row {
   background-color: #fff8e1 !important;
   font-weight: bold;
 }
@@ -228,7 +228,7 @@ button:hover {
   background: #ff9800;
   color: white;
   border-radius: 6px;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
 }
   </style>
 </head>
@@ -548,12 +548,15 @@ function findBestCards() {
       }
 
       if (totalScore > 0) {
+        const isSaved = savedCards.some(
+          c => c.card_name === card.card_name && c.bank === bank
+        );
         results.push({
           bank,
           cardName: card.card_name,
           score: totalScore,
-          isSaved: savedCards.includes(`${bank} - ${card.card_name}`),
-          benefits: benefitDetails
+          benefits: benefitDetails,
+          isSaved
         });
       }
     });
@@ -601,7 +604,7 @@ function findBestCards() {
     const savedBadge = r.isSaved ? `<span class="badge">Saved</span>` : "";
 
     tableHtml += `
-      <tr class="${r.isSaved ? "saved-row" : "highlight-row"}">
+      <tr class="${r.isSaved ? "saved-row" : ""}">
         <td>${r.bank}</td>
         <td>${r.cardName} ${savedBadge}</td>
         <td>${r.benefits.map(b => b.category).join(", ")}</td>
