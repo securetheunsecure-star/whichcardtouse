@@ -158,6 +158,58 @@ button:hover {
     padding: 6px;
   }
 }
+
+    .results-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.results-table th, .results-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.results-table th {
+  background: #f2f2f2;
+}
+
+.highlight-row {
+  background-color: #e6ffe6;
+  font-weight: bold;
+}
+
+/* Mobile card style */
+.mobile-cards {
+  display: none; /* hidden on desktop */
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.result-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.result-card h3 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+}
+
+/* ✅ Responsive Switch */
+@media (max-width: 600px) {
+  .desktop-view {
+    display: none; /* hide table on mobile */
+  }
+  .mobile-cards {
+    display: flex; /* show card layout */
+  }
+}
   </style>
 </head>
 <body>
@@ -181,7 +233,7 @@ button:hover {
     <!-- Results FIRST -->
     <div class="box">
       <h2>Best Card Suggestions</h2>
-      <ul id="results"><li>Enter a merchant or category to see offers.</li></ul>
+      <div id="results"></div>
     </div>
 
     <!-- User cards -->
@@ -324,6 +376,7 @@ function renderUserCards() {
   });
 }
 
+    
 function populateMerchantOptions() {
   const select = document.getElementById("merchant-select");
   const added = new Set();
@@ -499,44 +552,57 @@ function findBestCards() {
   const topResults = results.slice(0, 5);
 
   // Render results in table
-  const container = document.getElementById("results");
-  container.innerHTML = "";
+  const resultsDiv = document.getElementById("results");
+  resultsDiv.innerHTML = "";
 
-  if (topResults.length === 0) {
-    container.innerHTML = "<p>No matching card benefits found.</p>";
+  if (!results.length) {
+    resultsDiv.innerHTML = "<p>No matching cards found.</p>";
     return;
   }
 
-  let table = `
-    <table class="results-table">
+  // Table for desktop
+  let tableHtml = `
+    <table class="results-table desktop-view">
       <thead>
         <tr>
           <th>Bank</th>
           <th>Card</th>
           <th>Category</th>
-          <th>Merchants</th>
-          <th>Benefits</th>
+          <th>Benefit</th>
+          <th>Score</th>
         </tr>
       </thead>
       <tbody>
   `;
 
-  topResults.forEach(r => {
-    r.benefits.forEach(b => {
-      table += `
-        <tr class="${r.isSaved ? "highlight-row" : ""}">
-          <td>${r.bank}</td>
-          <td>${r.cardName}</td>
-          <td>${b.category}</td>
-          <td>${b.merchants}</td>
-          <td>${b.description}</td>
-        </tr>
-      `;
-    });
+  // Cards for mobile
+  let cardsHtml = `<div class="mobile-cards">`;
+
+  results.slice(0, 5).forEach(r => {
+    tableHtml += `
+      <tr class="highlight-row">
+        <td>${r.bank}</td>
+        <td>${r.card}</td>
+        <td>${r.category}</td>
+        <td>${r.benefit}</td>
+        <td>${r.score}</td>
+      </tr>
+    `;
+
+    cardsHtml += `
+      <div class="result-card">
+        <h3>${r.bank} - ${r.card}</h3>
+        <p><strong>Category:</strong> ${r.category}</p>
+        <p><strong>Benefit:</strong> ${r.benefit}</p>
+        <p><strong>Score:</strong> ${r.score}</p>
+      </div>
+    `;
   });
 
-  table += "</tbody></table>";
-  container.innerHTML = table;
+  tableHtml += "</tbody></table>";
+  cardsHtml += "</div>";
+
+  resultsDiv.innerHTML = tableHtml + cardsHtml;
 }
 
 
