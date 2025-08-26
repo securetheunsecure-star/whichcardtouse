@@ -589,7 +589,6 @@ function findBestCards() {
           <th>Card</th>
           <th>Category</th>
           <th>Benefit</th>
-          <th>Score</th>
         </tr>
       </thead>
       <tbody>
@@ -604,18 +603,16 @@ function findBestCards() {
     tableHtml += `
       <tr class="${r.isSaved ? "saved-row" : "highlight-row"}">
         <td>${r.bank}</td>
-        <td>${r.card} ${savedBadge}</td>
+        <td>${r.cardName} ${savedBadge}</td>
         <td>${r.benefits.map(b => b.category).join(", ")}</td>
         <td>${r.benefits.map(b => b.description).join("; ")}</td>
-        <td>${r.score}</td>
       </tr>
     `;
 
     cardsHtml += `
       <div class="result-card ${r.isSaved ? "saved-card" : ""}">
-        <h3>${r.bank} - ${r.card} ${savedBadge}</h3>
+        <h3>${r.bank} - ${r.cardName} ${savedBadge}</h3>
         ${r.benefits.map(b => `<p><strong>${b.category}:</strong> ${b.description}</p>`).join("")}
-        <p><strong>Score:</strong> ${r.score}</p>
       </div>
     `;
   });
