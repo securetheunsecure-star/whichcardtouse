@@ -582,9 +582,9 @@ function findBestCards() {
     tableHtml += `
       <tr class="highlight-row">
         <td>${r.bank}</td>
-        <td>${r.card}</td>
-        <td>${r.category}</td>
-        <td>${r.benefit}</td>
+        <td>${r.cardName}</td>
+        <td>${r.benefits.category}</td>
+        <td>${r.benefits.description}</td>
         <td>${r.score}</td>
       </tr>
     `;
@@ -592,8 +592,8 @@ function findBestCards() {
     cardsHtml += `
       <div class="result-card">
         <h3>${r.bank} - ${r.card}</h3>
-        <p><strong>Category:</strong> ${r.category}</p>
-        <p><strong>Benefit:</strong> ${r.benefit}</p>
+        <p><strong>Category:</strong> ${r.benefits.category}</p>
+        <p><strong>Benefit:</strong> ${r.benefits.description}</p>
         <p><strong>Score:</strong> ${r.score}</p>
       </div>
     `;
