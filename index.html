@@ -85,6 +85,79 @@
   background-color: #f0fff4;
   font-weight: bold;
 }
+
+    body {
+  font-family: Arial, sans-serif;
+  margin: 10px;
+  padding: 0;
+  background: #fafafa;
+}
+
+.merchant-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+input, select, button {
+  font-size: 1rem;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background: #007bff;
+  color: white;
+  cursor: pointer;
+  border: none;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.results-table th, .results-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.results-table th {
+  background: #f2f2f2;
+}
+
+.highlight-row {
+  background-color: #e6ffe6;
+  font-weight: bold;
+}
+
+/* ✅ Mobile Responsive */
+@media (max-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+
+  .merchant-input-container {
+    flex-direction: column;
+  }
+
+  input, select, button {
+    width: 100%;
+    font-size: 1.1rem;
+  }
+
+  .results-table th, .results-table td {
+    font-size: 0.9rem;
+    padding: 6px;
+  }
+}
   </style>
 </head>
 <body>
@@ -94,10 +167,13 @@
     <!-- Search -->
     <div class="box">
       <h2>Search Merchant</h2>
-<label for="merchant-input">Merchant / Category:</label>
-<input list="merchant-list" id="merchant-input" placeholder="Type or select a merchant/category..." />
-      <div id="autocomplete" class="autocomplete-suggestions"></div>
-<datalist id="merchant-list"></datalist>
+<div class="merchant-input-container">
+  <label for="merchant-input">Merchant / Category:</label>
+  <input type="text" id="merchant-input" placeholder="Type a merchant or category..." />
+  <select id="merchant-select">
+    <option value="">-- Select from list --</option>
+  </select>
+</div>
       <button id="search-btn">Fetch Best Card Offers</button>
       <button id="voice-btn">🎤 Speak</button>
     </div>
@@ -248,48 +324,56 @@ function renderUserCards() {
   });
 }
 
-    // ================= Merchant List Population =================
-function populateMerchantList() {
-  const datalist = document.getElementById("merchant-list");
+function populateMerchantOptions() {
+  const select = document.getElementById("merchant-select");
   const added = new Set();
 
   for (const bank in cardsData) {
     cardsData[bank].forEach(card => {
       for (const category in card.benefits) {
-        // Add category as option
+        // Add category
         if (!added.has(category)) {
-          const opt = document.createElement("option");
-          opt.value = category;
-          datalist.appendChild(opt);
+          select.insertAdjacentHTML("beforeend", `<option value="${category}">${category}</option>`);
           added.add(category);
         }
-
-        // Add merchants as options
-        if (card.benefits[category].merchants) {
+        // Add merchants
         card.benefits[category].merchants.forEach(m => {
           if (!added.has(m.name)) {
-            const opt = document.createElement("option");
-            opt.value = m.name;
-            datalist.appendChild(opt);
+            select.insertAdjacentHTML("beforeend", `<option value="${m.name}">${m.name}</option>`);
             added.add(m.name);
           }
-          // Add aliases
           m.aliases.forEach(alias => {
             if (!added.has(alias)) {
-              const opt = document.createElement("option");
-              opt.value = alias;
-              datalist.appendChild(opt);
+              select.insertAdjacentHTML("beforeend", `<option value="${alias}">${alias}</option>`);
               added.add(alias);
             }
           });
         });
-        }
       }
     });
   }
 }
-populateMerchantList();
-    document.addEventListener("DOMContentLoaded", populateMerchantList);
+
+// Sync dropdown → input
+document.getElementById("merchant-select").addEventListener("change", e => {
+  document.getElementById("merchant-input").value = e.target.value;
+});
+
+// Optional: filter dropdown while typing
+document.getElementById("merchant-input").addEventListener("input", e => {
+  const filter = e.target.value.toLowerCase();
+  const options = document.querySelectorAll("#merchant-select option");
+  options.forEach(opt => {
+    if (opt.value.toLowerCase().includes(filter) || opt.value === "") {
+      opt.hidden = false;
+    } else {
+      opt.hidden = true;
+    }
+  });
+});
+populateMerchantOptions();
+    document.addEventListener("DOMContentLoaded", populateMerchantOptions);
+
 
     /* ============ Find Best Cards with Smart Mapping ============ */
     document.getElementById('search-btn').addEventListener('click', findBestCards);
